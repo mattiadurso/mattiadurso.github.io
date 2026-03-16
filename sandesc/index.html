@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <!-- TODO: Replace with your paper title and author names -->
+  <meta name="title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction - D'Urso et al.">
+  <!-- TODO: Write a compelling 150-160 character description of your research -->
+  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="keywords" content="Structure-from-Motion, 3D Reconstruction, Keypoint Descriptor, sfm, descriptor, 4K">
+  <!-- TODO: List all authors -->
+  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <!-- TODO: Replace with your institution or lab name -->
+  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
+  <!-- TODO: Same as paper title above -->
+  <meta property="og:title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction">
+  <!-- TODO: Same as description above -->
+  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <!-- TODO: Replace with your actual website URL -->
+  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <!-- TODO: Create a 1200x630px preview image and update path -->
+  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction - Research Preview">
+  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+  <meta property="article:author" content="FIRST_AUTHOR_NAME">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="KEYWORD1">
+  <meta property="article:tag" content="KEYWORD2">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- TODO: Replace with your lab/institution Twitter handle -->
+  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
+  <!-- TODO: Replace with first author's Twitter handle -->
+  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
+  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction">
+  <!-- TODO: Same as description above -->
+  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
+  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction">
+  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
+  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="CONFERENCE_NAME">
+  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>SANDesc - D'Urso et al.</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "SANDesc: A Streamlined Attention-based Network for Descriptor Extraction",
+    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "FIRST_AUTHOR_NAME",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "INSTITUTION_NAME"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SECOND_AUTHOR_NAME",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "INSTITUTION_NAME"
+        }
+      }
+    ],
+    "datePublished": "2024-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CONFERENCE_OR_JOURNAL_NAME"
+    },
+    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
+    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
+    "abstract": "FULL_ABSTRACT_TEXT_HERE",
+    "citation": "BIBTEX_CITATION_HERE",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "RESEARCH_AREA_1"
+      },
+      {
+        "@type": "Thing", 
+        "name": "RESEARCH_AREA_2"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "INSTITUTION_OR_LAB_NAME",
+    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
+    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/YOUR_TWITTER_HANDLE",
+      "https://github.com/YOUR_GITHUB_USERNAME"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- TODO: Replace with your paper title -->
+            <h1 class="title is-1 publication-title"><b>SAN<span style="font-variant: small-caps;">Desc</span></b>: A Streamlined Attention-based Network for Descriptor Extraction</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: Replace with your paper authors and their personal links -->
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=9FjTo3YAAAAJ&hl=en" target="_blank">Mattia D'Urso</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=1JwKYK8AAAAJ&hl=en" target="_blank">Emanuele Santellani</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=6uZVF04AAAAJ&hl=en" target="_blank">Christian Sormann</a><sup>2</sup>
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=DA3nSvgAAAAJ&hl=en" target="_blank">Mattia Rossi</a><sup>2</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=-uuEU_wAAAAJ&hl=en" target="_blank">Andreas Kuhn</a><sup>2</sup>
+              </span>
+              <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=M0boL5kAAAAJ&hl=en" target="_blank">Friedrich Fraundorfer</a><sup>1</sup>
+              </span>
+               </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <!-- TODO: Replace with your institution and conference/journal info -->
+                    <span class="author-block"><sup>1</sup>Graz University of Technology <sup>2</sup>Sony Europe<br>3DV 2026</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- TODO: Update with your arXiv paper ID -->
+                      <span class="link-block">
+                        <a href="http://arxiv.org/abs/2601.13126" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                    <!-- TODO: Add your supplementary material PDF or remove this section -->
+                    <span class="link-block">
+                      <a href="static/pdfs/SANDesc___3DV_SM.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span>
+
+                  <!-- TODO: Replace with your GitHub repository URL -->
+                  <span class="link-block">
+                    <a href="https://github.com/mattiadurso/sandesc" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+              <span class="link-block">
+                  <a href="https://github.com/mattiadurso/PoseBench" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-database"></i>
+                  </span>
+                  <span>GRAZ 4K</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/Screenshot 2025-12-14 at 15.39.50.png" alt="qualitative1" loading="lazy"/>
+      </div>
+      <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/Screenshot 2025-12-14 at 15.40.02.png" alt="qualitative2" loading="lazy"/>
+      </div>
+      <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/Screenshot 2025-12-14 at 15.40.12.png" alt="qualitative3" loading="lazy"/>
+      </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <!-- TODO: Replace with your paper abstract -->
+          <p>
+            We introduce <b>SAN<span style="font-variant: small-caps;">Desc</span></b> a <u>S</u>treamlined <u>A</u>ttention-based <u>N</u>etwork for <u>Desc</u>riptor extraction that aims to improve on existing architectures for keypoint description.
+            Our descriptor network learns to compute descriptors that improve matching without modifying the underlying keypoint detector.
+            We employ a revised <span style="white-space: nowrap;">U-Net-like</span> architecture enhanced with Convolutional Block Attention Modules and residual paths, enabling effective local representation while maintaining computational efficiency.
+            We refer to the building blocks of our model as Residual U-Net Blocks with Attention. The model is trained using a modified triplet loss in combination with a curriculum learning–inspired hard negative mining strategy, which improves training stability.
+            Extensive experiments on HPatches, MegaDepth-1500, and the Image Matching Challenge 2021 show that training SAN<span style="font-variant: small-caps;">Desc</span> on top of existing keypoint detectors leads to improved results on multiple matching tasks compared to the original keypoint descriptors. At the same time, SAN<span style="font-variant: small-caps;">Desc</span> has a model complexity of just 2.4 million parameters.
+            As a further contribution, we introduce a new urban dataset featuring 4K images and pre-calibrated intrinsics, designed to evaluate feature extractors. On this benchmark, SAN<span style="font-variant: small-caps;">Desc</span> achieves substantial performance gains over the existing descriptors while operating with limited computational resources.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Model Arch -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/ruba.png" alt="RUBA" loading="lazy"/>
+        <h2 class="subtitle has-text-centered">
+          Residual U-Net Block with Attention (RUBA) structure.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/architecture.png" alt="Architecture" loading="lazy"/>
+        <!-- TODO: Replace with description of this result -->
+        <h2 class="subtitle has-text-centered">
+          <b>SAN<span style="font-variant: small-caps;">Desc</span></b> architecture overview.
+        </h2>
+      </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+<!-- Table with Results -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/graz4k.png" alt="graz4k" loading="lazy"/>
+        <h2 class="subtitle has-text-centered">
+          Graz4K results with a 2048 keypoints budget for three resolutions. DeDoDe-B and -G share the detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> achieves the highest scores in all cases.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/md1500.png" alt="md1500" loading="lazy"/>
+        <!-- TODO: Replace with description of this result -->
+        <h2 class="subtitle has-text-centered">
+          MegaDepth-1500 results with 2048 and 30 000 keypoints budgets. DeDoDe-B and -G share the same detector. DeDoDe+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> scores the highest AUC@5 with 2048 keypoints.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- TODO: Replace with your research result images -->
+        <img src="static/images/imc.png" alt="imc" loading="lazy"/>
+        <!-- TODO: Replace with description of this result -->
+        <h2 class="subtitle has-text-centered">
+          The Image Matching Challenge 2021 Phototourim test set results in terms of AUC@5. The keypoints budget is set to 2048. DeDoDe-B and -G share the same detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> overall achieves the highest average score.
+        </h2>
+      </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+<!-- GRAZ4K sparse reconstructions -->
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Graz4K Sparse Reconstructions</h2>
+      <div id="graz4k-carousel" class="carousel results-carousel" data-autoplay="false">
+        <div class="item item-video1">
+          <h2 class="subtitle has-text-centered">Castle</h2>
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video1" autoplay controls muted loop playsinline width="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/castle.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <h2 class="subtitle has-text-centered">Church</h2>
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video2" autoplay controls muted loop playsinline width="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/church.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <h2 class="subtitle has-text-centered">Clocktower</h2>
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video3" autoplay controls muted loop playsinline width="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/clocktower.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video4">
+          <h2 class="subtitle has-text-centered">Main Square</h2>
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video4" autoplay controls muted loop playsinline width="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/main_square.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video5">
+          <h2 class="subtitle has-text-centered">Townhall</h2>
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video5" autoplay controls muted loop playsinline width="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/townhall.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video6">
+          <h2 class="subtitle has-text-centered">University</h2>
+          <!-- TODO: Add poster image for better preview -->
+          <video poster="" id="video6" autoplay controls muted loop playsinline width="100%">
+            <!-- Your video file here -->
+            <source src="static/videos/university.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+
+<!-- Paper poster -->
+<!-- <section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+
+      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section> -->
+<!--End paper poster -->
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@inproceedings{durso2026sandesc,
+        title={A Streamlined Attention-based Network for Descriptor Extraction},
+        author={D'Urso, Mattia and Santellani, Emanuele and Sormann, Christian and Rossi, Mattia and Kuhn, Andreas and Fraundorfer, Friedrich},
+        booktitle={2026 International Conference on 3D Vision (3DV)},
+        year={2026},
+        organization={IEEE Computer Society}
+      }</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>. 
+            This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
