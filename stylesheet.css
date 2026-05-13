@@ -184,6 +184,30 @@ a:hover {
   width: 18px;
   height: 18px;
   display: block;
+  flex-shrink: 0;
+}
+
+.social-links a {
+  flex-shrink: 0;
+}
+
+/* Safari: an <a> wrapping the hero photo is inline by default and
+   doesn't reliably honor the photo's box in grid. Make it a block
+   sized to the image. */
+.hero > a {
+  display: block;
+  width: 150px;
+  height: 150px;
+  justify-self: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .hero > a {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 /* ─────────────────────────────────────────────
