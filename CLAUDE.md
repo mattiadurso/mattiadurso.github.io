@@ -16,6 +16,9 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
+After Implementing:
+- Update `.md` files.
+
 ### 2. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
@@ -67,11 +70,12 @@ Changes go live automatically after pushing to `master`. No build step needed. T
 
 ## Site Structure
 
-Two independent sections with separate styling conventions:
+Two independent pages with separate styling conventions:
 
 **Main personal page** (`index.html` + `stylesheet.css`):
-- Table-based layout (Jon Barron template), Lato font loaded inline from Google Fonts
-- Publications are `<tr>` rows inside `index.html`; commented-out rows are papers in progress (EPO, TerraSky) that will be uncommented when published
+- Custom hand-written layout (originally adapted from the Jon Barron template, since fully rewritten — `stylesheet.css` is ~400 lines of custom CSS, no framework). Fonts: Cormorant Garamond (headings/serif) + Inter (body), loaded inline from Google Fonts
+- Single-column flow: `<header class="hero">` (bio + social SVG icons + portrait) followed by a `<section class="section">` containing a `<div class="papers">` list
+- Each publication is an `<article class="paper">` card, NOT a table row. Papers in progress are HTML-commented `<article>` blocks that get uncommented on publication (currently EPO is commented out around line 104)
 - Images live in `imgs/<project-name>/`
 
 **SANDesc project page** (`sandesc/index.html`):
@@ -81,7 +85,14 @@ Two independent sections with separate styling conventions:
 
 ## Adding a New Paper to the Main Page
 
-Copy an existing `<tr>` block in `index.html` (e.g., the SANDesc entry around line 195), update the image path, arXiv link, author spans, venue `<em>`, and description `<p>`. Add the thumbnail image to `imgs/<project-name>/`.
+Copy an existing `<article class="paper">` block in `index.html` (e.g., the SANDesc entry around line 175) into `<div class="papers">`, then update:
+- `<img class="paper-thumb" src="imgs/<project>/...">` and its `alt`
+- `<h3 class="paper-title">` link (arXiv/project URL)
+- `<p class="paper-authors">` — each author is an `<a>`; mark the site owner with `class="self"`, use `<sup>` for affiliation indices
+- `<p class="paper-affil">` (numbered affiliations) and `<span class="paper-venue">` (e.g. `CVPR 2025`)
+- `<p class="paper-desc">`
+
+Add the thumbnail to `imgs/<project-name>/`. Newest papers go at the top of the list.
 
 ## Adding a New Project Page
 
