@@ -400,30 +400,39 @@ a:hover {
    ───────────────────────────────────────────── */
 @media (min-width: 1024px) {
   html {
-    font-size: 17.5px;
+    font-size: 18px;
   }
 
   .container {
-    max-width: 880px;
+    max-width: 1000px;
   }
 
   .paper {
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 260px 1fr;
   }
 
   .paper-thumb {
-    width: 240px;
-    max-width: 240px;
+    width: 260px;
+    max-width: 260px;
   }
 }
 
 @media (min-width: 1440px) {
   html {
-    font-size: 18.5px;
+    font-size: 19px;
   }
 
   .container {
-    max-width: 960px;
+    max-width: 1140px;
+  }
+
+  .paper {
+    grid-template-columns: 300px 1fr;
+  }
+
+  .paper-thumb {
+    width: 300px;
+    max-width: 300px;
   }
 }
 
