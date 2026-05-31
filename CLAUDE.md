@@ -70,18 +70,24 @@ Changes go live automatically after pushing to `master`. No build step needed. T
 
 ## Site Structure
 
-Two independent pages with separate styling conventions:
+Three pages — one main personal page (custom CSS) and two project pages (shared Bulma-based template):
 
 **Main personal page** (`index.html` + `stylesheet.css`):
 - Custom hand-written layout (originally adapted from the Jon Barron template, since fully rewritten — `stylesheet.css` is ~400 lines of custom CSS, no framework). Fonts: Cormorant Garamond (headings/serif) + Inter (body), loaded inline from Google Fonts
 - Single-column flow: `<header class="hero">` (bio + social SVG icons + portrait) followed by a `<section class="section">` containing a `<div class="papers">` list
-- Each publication is an `<article class="paper">` card, NOT a table row. Papers in progress are HTML-commented `<article>` blocks that get uncommented on publication (currently EPO is commented out around line 104)
+- Each publication is an `<article class="paper">` card, NOT a table row. Papers in progress are HTML-commented `<article>` blocks that get uncommented on publication (the EPO entry is commented out around line 104, though its project page at `epo/` is already built)
 - Images live in `imgs/<project-name>/`
 
 **SANDesc project page** (`sandesc/index.html`):
 - Uses Bulma CSS framework with carousel/slider components
 - Static assets under `sandesc/static/` (css, js, images, videos, pdfs)
 - Many `TODO` meta tags in the `<head>` remain unfilled (og:description, twitter handles, citation authors, etc.)
+
+**EPO project page** (`epo/index.html`):
+- Same Bulma-based template and `static/` layout as SANDesc (`static/css` and `static/js` were copied from `sandesc/`). Meta tags / structured data are fully filled in for SEO
+- Sections: hero + teaser GIF, abstract, contributions, "How It Works" (method), a pose-accuracy/runtime AUC table, "Generalization Across 3D Foundation Models" (VGGT / MapAnything / π³X, each raw vs +EPO), Novel View Synthesis (one figure box with Garden/Bicycle/Flowers/Kitchen rows + a metrics table), BibTeX
+- Results tables carry a `.results-table` class (right-aligned numeric columns, tabular figures) defined at the bottom of `epo/static/css/index.css`
+- Paper source is kept in-repo under `epo/` but **gitignored** (see `.gitignore`): `EPO_latex/` (LaTeX, the content source of truth), `figs/` (original figures), `gifs/` (`townhall.mp4`, source for the teaser), and the full PDFs. The page only references committed copies under `epo/static/`: figures in `static/images/` (large renders downscaled to ~760px via `sips -Z`), the teaser `static/images/townhall.gif` (the full ~24 s clip, 1600 px on the long edge, 10 fps, generated from `gifs/townhall.mp4` via ffmpeg palettegen/paletteuse `stats_mode=diff` then `gifsicle -O3 --lossy=600 --colors 24`, ~16 MB — the content is a dense moving point cloud that compresses poorly, so full-res 1080p runs 22–23 MB and fps barely affects size; an H.264 `<video>` was tried but failed to autoplay in Safari and render in Chrome, hence the GIF), and `static/pdfs/EPO.pdf` (ghostscript `-dPDFSETTINGS=/ebook` compression of the source PDF)
 
 ## Adding a New Paper to the Main Page
 
@@ -96,4 +102,4 @@ Add the thumbnail to `imgs/<project-name>/`. Newest papers go at the top of the 
 
 ## Adding a New Project Page
 
-Use `sandesc/` as a template. Create a new subdirectory, copy the `static/` assets, and update `sandesc/index.html` content (title, abstract, BibTeX, carousel images/videos). Fill in all `TODO` meta tags in the `<head>` for SEO.
+Use `sandesc/` or `epo/` as a template. Create a new subdirectory, copy the `static/` assets, and update the `index.html` content (title, abstract, BibTeX, figures). Fill in all `TODO` meta tags in the `<head>` for SEO. Optimize heavy assets before committing: downscale large figures (`sips -Z 760 file.png`), compress the paper PDF (`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook`), and build any GIF teaser from a source video with ffmpeg (palettegen/paletteuse) + `gifsicle -O3 --lossy`.
