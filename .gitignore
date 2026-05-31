@@ -1,0 +1,8 @@
+# EPO: ship the project page (epo/index.html) and its web assets (epo/static/),
+# but keep the heavy paper sources out of the repo.
+epo/EPO_latex/
+epo/figs/
+epo/gifs/
+epo/*.pdf
+**/.DS_Store
+epo/
