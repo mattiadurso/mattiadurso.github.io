@@ -1,22 +1,22 @@
 /* Modern CSS Variables for consistent theming */
 :root {
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --secondary-color: #64748b;
-  --accent-color: #0ea5e9;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-light: #94a3b8;
+  --primary-color: #b45309;
+  --primary-hover: #92400e;
+  --secondary-color: #57534e;
+  --accent-color: #b45309;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-light: #78716c;
   --background-primary: #ffffff;
-  --background-secondary: #f8fafc;
-  --background-accent: #f1f5f9;
-  --border-color: #e2e8f0;
+  --background-secondary: #fafaf9;
+  --background-accent: #f5f5f4;
+  --border-color: #e7e5e4;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-accent: linear-gradient(#b45309, #b45309);
   --gradient-subtle: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   --border-radius: 12px;
   --border-radius-lg: 16px;
@@ -28,12 +28,17 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: #fef3c7;
+  color: #1c1917;
+}
+
 body {
   font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.65;
   font-size: 16px;
-  background-color: var(--background-primary);
+  background-color: var(--background-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -115,11 +120,12 @@ body {
 
 /* Publication Content Styling */
 .publication-title {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 800 !important;
+    font-family: 'Cormorant Garamond', 'Hoefler Text', Georgia, serif !important;
+    font-weight: 500 !important;
     color: var(--text-primary) !important;
     margin-bottom: 2rem !important;
-    line-height: 1.1 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.015em;
 }
 
 .publication-banner {
@@ -309,9 +315,11 @@ body {
 }
 
 /* Section Titles */
+.title,
 .title.is-3 {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 700 !important;
+  font-family: 'Cormorant Garamond', 'Hoefler Text', Georgia, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.005em;
   color: var(--text-primary);
   margin-bottom: 2rem !important;
   position: relative;
@@ -747,6 +755,90 @@ a:focus {
     color: var(--text-primary) !important;
     box-shadow: none !important;
   }
+}
+
+/* Static stacked figures (replaces still-image carousels) */
+.figure-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Two figures side by side on desktop, stacked on mobile */
+.figure-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+  .figure-row {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.figure {
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+.figure figcaption {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+/* Static video grid (replaces video carousel) */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.video-item {
+  margin: 0;
+  padding: 1rem;
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.video-item video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  /* clip the faint 1px frame border baked into the source clips */
+  clip-path: inset(2px round var(--border-radius));
+}
+
+.video-item figcaption {
+  margin-top: 0.85rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 

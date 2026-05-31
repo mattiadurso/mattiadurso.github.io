@@ -99,7 +99,7 @@
   </noscript>
   
   <!-- Fonts - Optimized loading -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Defer non-critical JavaScript -->
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -275,28 +275,25 @@
   </div>
 </section>
 
-<!-- Image carousel -->
+<!-- Qualitative results -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-      <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/Screenshot 2025-12-14 at 15.39.50.png" alt="qualitative1" loading="lazy"/>
+      <div class="figure-stack">
+        <figure class="figure">
+          <img src="static/images/Screenshot 2025-12-14 at 15.39.50.png" alt="qualitative1" loading="lazy"/>
+        </figure>
+        <figure class="figure">
+          <img src="static/images/Screenshot 2025-12-14 at 15.40.02.png" alt="qualitative2" loading="lazy"/>
+        </figure>
+        <figure class="figure">
+          <img src="static/images/Screenshot 2025-12-14 at 15.40.12.png" alt="qualitative3" loading="lazy"/>
+        </figure>
       </div>
-      <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/Screenshot 2025-12-14 at 15.40.02.png" alt="qualitative2" loading="lazy"/>
-      </div>
-      <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/Screenshot 2025-12-14 at 15.40.12.png" alt="qualitative3" loading="lazy"/>
-      </div>
+    </div>
   </div>
-</div>
-</div>
 </section>
-<!-- End image carousel -->
+<!-- End qualitative results -->
 
 <!-- Paper abstract -->
 <section class="section hero is-light">
@@ -322,65 +319,47 @@
 <!-- End paper abstract -->
 
 
-<!-- Model Arch -->
+<!-- Model architecture -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/ruba.png" alt="RUBA" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Residual U-Net Block with Attention (RUBA) structure.
-        </h2>
+      <div class="figure-row">
+        <figure class="figure">
+          <img src="static/images/ruba.png" alt="RUBA" loading="lazy"/>
+          <figcaption>Residual U-Net Block with Attention (RUBA) structure.</figcaption>
+        </figure>
+        <figure class="figure">
+          <img src="static/images/architecture.png" alt="Architecture" loading="lazy"/>
+          <figcaption><b>SAN<span style="font-variant: small-caps;">Desc</span></b> architecture overview.</figcaption>
+        </figure>
       </div>
-      <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/architecture.png" alt="Architecture" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          <b>SAN<span style="font-variant: small-caps;">Desc</span></b> architecture overview.
-        </h2>
-      </div>
+    </div>
   </div>
-</div>
-</div>
 </section>
-<!-- End image carousel -->
+<!-- End model architecture -->
 
-<!-- Table with Results -->
+<!-- Results tables -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/graz4k.png" alt="graz4k" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Graz4K results with a 2048 keypoints budget for three resolutions. DeDoDe-B and -G share the detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> achieves the highest scores in all cases.
-        </h2>
+      <div class="figure-stack">
+        <figure class="figure">
+          <img src="static/images/graz4k.png" alt="graz4k" loading="lazy"/>
+          <figcaption>Graz4K results with a 2048 keypoints budget for three resolutions. DeDoDe-B and -G share the detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> achieves the highest scores in all cases.</figcaption>
+        </figure>
+        <figure class="figure">
+          <img src="static/images/md1500.png" alt="md1500" loading="lazy"/>
+          <figcaption>MegaDepth-1500 results with 2048 and 30 000 keypoints budgets. DeDoDe-B and -G share the same detector. DeDoDe+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> scores the highest AUC@5 with 2048 keypoints.</figcaption>
+        </figure>
+        <figure class="figure">
+          <img src="static/images/imc.png" alt="imc" loading="lazy"/>
+          <figcaption>The Image Matching Challenge 2021 Phototourim test set results in terms of AUC@5. The keypoints budget is set to 2048. DeDoDe-B and -G share the same detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> overall achieves the highest average score.</figcaption>
+        </figure>
       </div>
-      <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/md1500.png" alt="md1500" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          MegaDepth-1500 results with 2048 and 30 000 keypoints budgets. DeDoDe-B and -G share the same detector. DeDoDe+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> scores the highest AUC@5 with 2048 keypoints.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/imc.png" alt="imc" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          The Image Matching Challenge 2021 Phototourim test set results in terms of AUC@5. The keypoints budget is set to 2048. DeDoDe-B and -G share the same detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> overall achieves the highest average score.
-        </h2>
-      </div>
+    </div>
   </div>
-</div>
-</div>
 </section>
-<!-- End image carousel -->
+<!-- End results tables -->
 
 <!-- GRAZ4K sparse reconstructions -->
 
@@ -388,55 +367,43 @@
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-3">Graz4K Sparse Reconstructions</h2>
-      <div id="graz4k-carousel" class="carousel results-carousel" data-autoplay="false">
-        <div class="item item-video1">
-          <h2 class="subtitle has-text-centered">Castle</h2>
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video1" autoplay controls muted loop playsinline width="100%">
-            <!-- Your video file here -->
+      <div class="video-grid">
+        <figure class="video-item">
+          <video poster="" id="video1" autoplay muted loop playsinline width="100%">
             <source src="static/videos/castle.mp4" type="video/mp4">
           </video>
-        </div>
-        <div class="item item-video2">
-          <h2 class="subtitle has-text-centered">Church</h2>
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video2" autoplay controls muted loop playsinline width="100%">
-            <!-- Your video file here -->
+          <figcaption>Castle</figcaption>
+        </figure>
+        <figure class="video-item">
+          <video poster="" id="video2" autoplay muted loop playsinline width="100%">
             <source src="static/videos/church.mp4" type="video/mp4">
           </video>
-        </div>
-        <div class="item item-video3">
-          <h2 class="subtitle has-text-centered">Clocktower</h2>
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video3" autoplay controls muted loop playsinline width="100%">
-            <!-- Your video file here -->
+          <figcaption>Church</figcaption>
+        </figure>
+        <figure class="video-item">
+          <video poster="" id="video3" autoplay muted loop playsinline width="100%">
             <source src="static/videos/clocktower.mp4" type="video/mp4">
           </video>
-        </div>
-        <div class="item item-video4">
-          <h2 class="subtitle has-text-centered">Main Square</h2>
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video4" autoplay controls muted loop playsinline width="100%">
-            <!-- Your video file here -->
+          <figcaption>Clocktower</figcaption>
+        </figure>
+        <figure class="video-item">
+          <video poster="" id="video4" autoplay muted loop playsinline width="100%">
             <source src="static/videos/main_square.mp4" type="video/mp4">
           </video>
-        </div>
-        <div class="item item-video5">
-          <h2 class="subtitle has-text-centered">Townhall</h2>
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video5" autoplay controls muted loop playsinline width="100%">
-            <!-- Your video file here -->
+          <figcaption>Main Square</figcaption>
+        </figure>
+        <figure class="video-item">
+          <video poster="" id="video5" autoplay muted loop playsinline width="100%">
             <source src="static/videos/townhall.mp4" type="video/mp4">
           </video>
-        </div>
-        <div class="item item-video6">
-          <h2 class="subtitle has-text-centered">University</h2>
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video6" autoplay controls muted loop playsinline width="100%">
-            <!-- Your video file here -->
+          <figcaption>Townhall</figcaption>
+        </figure>
+        <figure class="video-item">
+          <video poster="" id="video6" autoplay muted loop playsinline width="100%">
             <source src="static/videos/university.mp4" type="video/mp4">
           </video>
-        </div>
+          <figcaption>University</figcaption>
+        </figure>
       </div>
     </div>
   </div>
