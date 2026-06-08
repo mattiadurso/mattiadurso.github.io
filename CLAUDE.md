@@ -94,11 +94,15 @@ Three pages — one main personal page (custom CSS) and two project pages (share
 Copy an existing `<article class="paper">` block in `index.html` (e.g., the SANDesc entry around line 175) into `<div class="papers">`, then update:
 - `<img class="paper-thumb" src="imgs/<project>/...">` and its `alt`
 - `<h3 class="paper-title">` link (arXiv/project URL)
-- `<p class="paper-authors">` — each author is an `<a>`; mark the site owner with `class="self"`, use `<sup>` for affiliation indices
-- `<p class="paper-affil">` (numbered affiliations) and `<span class="paper-venue">` (e.g. `CVPR 2025`)
+- `<p class="paper-authors">` — each author is an `<a>`; mark the site owner with `class="self"`, use `<sup>` for affiliation indices. Authors are separated by whitespace only (no commas) — the line break between `<a>` tags renders as a single space
+- `<p class="paper-affil">` (numbered affiliations, separated by `&nbsp;&nbsp;&nbsp;` spacing, no `&middot;`) and `<span class="paper-venue">` (e.g. `CVPR 2025`)
 - `<p class="paper-desc">`
 
 Add the thumbnail to `imgs/<project-name>/`. Newest papers go at the top of the list.
+
+### Clickable Badges
+
+Any clickable badge (award, dataset link, etc.) is an `<a class="badge">` with inline `display`/`background`/`color`/`border-radius`/`padding`/`font-size`/`text-decoration:none` styling. The badge background varies per badge (e.g. cream `#f5f3e8` for awards, soft yellow `#fff8e1` for Hugging Face), but the text color stays `#c0392b` for consistency. The shared `.badge` hover style (defined in `stylesheet.css`) — cream background, `#c0392b` border materializing, soft shadow, 1px lift — applies automatically to every badge carrying the class.
 
 ## Adding a New Project Page
 
