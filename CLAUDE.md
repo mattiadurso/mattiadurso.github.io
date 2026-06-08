@@ -103,3 +103,10 @@ Add the thumbnail to `imgs/<project-name>/`. Newest papers go at the top of the 
 ## Adding a New Project Page
 
 Use `sandesc/` or `epo/` as a template. Create a new subdirectory, copy the `static/` assets, and update the `index.html` content (title, abstract, BibTeX, figures). Fill in all `TODO` meta tags in the `<head>` for SEO. Optimize heavy assets before committing: downscale large figures (`sips -Z 760 file.png`), compress the paper PDF (`gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook`), and build any GIF teaser from a source video with ffmpeg (palettegen/paletteuse) + `gifsicle -O3 --lossy`.
+
+## Commits
+Always commit with the explicit identity:
+```bash
+git -c user.name="mattiadurso" -c user.email="mattiadurso98@gmail.com" commit ...
+```
+No other co-author or collaborator are allowed.
