@@ -102,7 +102,7 @@ Add the thumbnail to `imgs/<project-name>/`. Newest papers go at the top of the 
 
 ### Clickable Badges
 
-Any clickable badge (award, dataset link, etc.) is an `<a class="badge">` with inline `display`/`background`/`color`/`border-radius`/`padding`/`font-size`/`text-decoration:none` styling. The badge background varies per badge (e.g. cream `#f5f3e8` for awards, soft yellow `#fff8e1` for Hugging Face), but the text color stays `#c0392b` for consistency. The shared `.badge` hover style (defined in `stylesheet.css`) — cream background, `#c0392b` border materializing, soft shadow, 1px lift — applies automatically to every badge carrying the class.
+Any clickable badge (award, dataset link, etc.) is an `<a class="badge">` with inline `display`/`background`/`color`/`border-radius:6px`/`padding`/`font-size`/`text-decoration:none` styling. Each badge is color-coded by purpose, with a light tinted background and a matching darker text color: 🥈 **Best Paper Award** is red text `#c0392b` on cream `#f5f3e8`, 🤗 **Dataset** is blue text `#2563eb` on `#eff6ff`. The shared `.badge` hover style (defined in `stylesheet.css`) keeps each badge's own background and only materializes a `#b45309` border, soft shadow, and 1px lift — applied automatically to every badge carrying the class.
 
 ## Adding a New Project Page
 
