@@ -6,7 +6,7 @@
 
   <!-- Primary Meta Tags -->
   <meta name="title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization - D'Urso et al.">
-  <meta name="description" content="EPO is a trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
+  <meta name="description" content="EPO is a trackless framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
   <meta name="keywords" content="3D Reconstruction, Geometric Optimization, Structure-from-Motion, 3D Foundation Models, VGGT, Bundle Adjustment, Pose Refinement">
   <meta name="author" content="Mattia D'Urso, Christian Sormann, Mattia Rossi, Friedrich Fraundorfer">
   <meta name="robots" content="index, follow">
@@ -16,7 +16,7 @@
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Institute for Visual Computing, Graz University of Technology">
   <meta property="og:title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization">
-  <meta property="og:description" content="A trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
+  <meta property="og:description" content="A trackless framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
   <meta property="og:url" content="https://mattiadurso.com/epo">
   <!-- TODO: replace placeholder social preview with a 1200x630 PNG render -->
   <meta property="og:image" content="https://mattiadurso.com/epo/static/images/social_preview.svg">
@@ -31,7 +31,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization">
-  <meta name="twitter:description" content="A trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
+  <meta name="twitter:description" content="A trackless framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
   <meta name="twitter:image" content="https://mattiadurso.com/epo/static/images/social_preview.svg">
   <meta name="twitter:image:alt" content="Boosting 3D Foundation Models with Edge-based Pose Optimization - Research Preview">
 
@@ -93,7 +93,7 @@
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
     "headline": "Boosting 3D Foundation Models with Edge-based Pose Optimization",
-    "description": "EPO is a trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.",
+    "description": "EPO is a trackless framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.",
     "author": [
       { "@type": "Person", "name": "Mattia D'Urso", "affiliation": { "@type": "Organization", "name": "Graz University of Technology" } },
       { "@type": "Person", "name": "Christian Sormann", "affiliation": { "@type": "Organization", "name": "Sony Europe" } },
@@ -127,7 +127,7 @@
             <h1 class="title is-1 publication-title">Boosting 3D Foundation Models with <b>E</b>dge-based <b>P</b>ose <b>O</b>ptimization</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=9FjTo3YAAAAJ&hl=en" target="_blank">Mattia D'Urso</a><sup>1</sup>
+                <a href="https://mattiadurso.com/" target="_blank">Mattia D'Urso</a><sup>1</sup>
               </span>
               <span class="author-block">
                 <a href="https://scholar.google.com/citations?user=6uZVF04AAAAJ&hl=en" target="_blank">Christian Sormann</a><sup>2</sup>
@@ -209,7 +209,7 @@
             time-consuming feature extraction and matching stages of traditional pipelines, where explicit correspondences between each 3D point and multiple
             images, referred to as <i>tracks</i>, are established. However, their geometric accuracy currently falls short of traditional pipelines. While this
             can be addressed in a post-processing step via Bundle Adjustment-like refinement, doing so requires extracting feature tracks, thus defeating the
-            original speed advantage. Instead, our fully differentiable framework uses edge map alignment as a proxy for geometric optimization, avoiding
+            original speed advantage. Instead, our framework uses edge map alignment as a proxy for geometric optimization, avoiding
             feature extraction and track construction entirely. Through extensive evaluation across multiple datasets and tasks, we demonstrate that EPO
             matches or outperforms Bundle Adjustment-like methods while requiring significantly lower runtime and memory. Notably, its reduced memory
             footprint makes EPO suitable for consumer-grade hardware, where competing refinement methods cannot run.
@@ -227,7 +227,7 @@
     <h2 class="title is-3 has-text-centered">Contributions</h2>
     <div class="content has-text-justified">
       <ul>
-        <li>We propose a robust, differentiable, and <b>trackless</b> optimization framework that boosts the geometric accuracy of 3D Foundation Models through neural pose refinement and first-order optimization.</li>
+        <li>We propose a robust and <b>trackless</b> optimization framework that boosts the geometric accuracy of 3D Foundation Models through neural pose refinement and first-order optimization.</li>
         <li>We introduce an <b>edge-based reprojection loss</b> and a <b>pose-based early-stopping criterion</b> that together reduce runtime to a few seconds, compared to the minutes needed by Bundle Adjustment-based refinement methods, while requiring lower memory.</li>
         <li>We provide a comprehensive evaluation across diverse 3D Foundation Models, benchmarks, and real-world scenarios — including <b>TerraSky3D</b>, <b>ScanNet++</b>, and <b>Mip-NeRF 360</b> — demonstrating that EPO consistently performs on par with, or superior to, state-of-the-art refinement methods.</li>
       </ul>
@@ -245,8 +245,7 @@
         <p>
           Given the initial geometry from a 3D Foundation Model, EPO computes for each image a Canny edge map and its Distance Transform Field (DTF), where
           every pixel encodes the distance to the nearest edge. Rather than matching features, EPO minimizes a <b>bidirectional edge reprojection loss</b>:
-          edges from one view are reprojected into another and scored against the DTF. A pose MLP, a learnable focal scaling, and a pixel-wise affine depth
-          correction are updated by a first-order optimizer until a pose-based stopping criterion is met.
+          edges from one view are reprojected into another and scored against the DTF. We learn, <i>per scene</i>, a pose MLP, a focal scaling, and a <i>pixel-wise</i> affine depth correction, all updated by a first-order optimizer until a pose-based stopping criterion is met.
         </p>
       </div>
       <div class="figure-row">
@@ -523,6 +522,35 @@
     }
   };
 
+  // Dashed red threshold at the one-minute mark, to highlight that our method stays under a minute.
+  var minuteLine = {
+    id: 'minuteLine',
+    afterDatasetsDraw: function(chart) {
+      var area = chart.chartArea;
+      var y = chart.scales.y.getPixelForValue(60);
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.setLineDash([6, 4]);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(220, 38, 38, 0.3)';
+      ctx.moveTo(area.left, y);
+      ctx.lineTo(area.right, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      var text = '1 min';
+      ctx.font = 'bold 10px Inter, sans-serif';
+      var tw = ctx.measureText(text).width;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+      ctx.fillRect(area.left, y - 16, tw + 8, 14);
+      ctx.fillStyle = 'rgba(220, 38, 38, 0.85)';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, area.left + 4, y - 9);
+      ctx.restore();
+    }
+  };
+
   // Generalization charts are ~twice as tall on desktop (aspectRatio 1 vs the default 2); mobile keeps the wider 2.
   var GEN_ASPECT = window.matchMedia('(min-width: 769px)').matches ? 1 : 2;
 
@@ -542,7 +570,7 @@
           plugins: { legend: LEGEND },
           scales: {
             x: { grid: { display: false }, ticks: TICK },
-            y: { min: 40, max: 100, grid: YGRID, border: { display: false },
+            y: { min: 50, max: 100, grid: YGRID, border: { display: false },
                  ticks: { font: { size: 11 }, color: '#4b5563' } }
           }
         }
@@ -551,7 +579,7 @@
     'chart-time': function(el) {
       return new Chart(el, {
         type: 'bar',
-        plugins: [runtimeLabels],
+        plugins: [runtimeLabels, minuteLine],
         data: {
           labels: DATASETS,
           datasets: methods.map(function(m) {
@@ -564,8 +592,10 @@
           plugins: { legend: LEGEND },
           scales: {
             x: { grid: { display: false }, ticks: TICK },
-            y: { grid: YGRID, border: { display: false },
-                 ticks: { font: { size: 11 }, color: '#4b5563', callback: function(v) { return v + 's'; } } }
+            y: { min: 0, max: 360,
+                 afterBuildTicks: function(axis) { axis.ticks = [60, 120, 180, 240, 300, 360].map(function(v) { return { value: v }; }); },
+                 grid: YGRID, border: { display: false },
+                 ticks: { font: { size: 11 }, color: '#4b5563' } }
           }
         }
       });
