@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization - D'Urso et al.">
+  <meta name="description" content="EPO is a trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
+  <meta name="keywords" content="3D Reconstruction, Geometric Optimization, Structure-from-Motion, 3D Foundation Models, VGGT, Bundle Adjustment, Pose Refinement">
+  <meta name="author" content="Mattia D'Urso, Christian Sormann, Mattia Rossi, Friedrich Fraundorfer">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Institute for Visual Computing, Graz University of Technology">
+  <meta property="og:title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization">
+  <meta property="og:description" content="A trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
+  <meta property="og:url" content="https://mattiadurso.com/epo">
+  <!-- TODO: replace placeholder social preview with a 1200x630 PNG render -->
+  <meta property="og:image" content="https://mattiadurso.com/epo/static/images/social_preview.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Boosting 3D Foundation Models with Edge-based Pose Optimization - Research Preview">
+  <meta property="article:author" content="Mattia D'Urso">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="3D Reconstruction">
+  <meta property="article:tag" content="Structure-from-Motion">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization">
+  <meta name="twitter:description" content="A trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.">
+  <meta name="twitter:image" content="https://mattiadurso.com/epo/static/images/social_preview.svg">
+  <meta name="twitter:image:alt" content="Boosting 3D Foundation Models with Edge-based Pose Optimization - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Boosting 3D Foundation Models with Edge-based Pose Optimization">
+  <meta name="citation_author" content="D'Urso, Mattia">
+  <meta name="citation_author" content="Sormann, Christian">
+  <meta name="citation_author" content="Rossi, Mattia">
+  <meta name="citation_author" content="Fraundorfer, Friedrich">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="European Conference on Computer Vision (ECCV)">
+  <meta name="citation_pdf_url" content="https://mattiadurso.com/epo/static/pdfs/EPO.pdf">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>EPO - D'Urso et al.</title>
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Boosting 3D Foundation Models with Edge-based Pose Optimization",
+    "description": "EPO is a trackless, fully differentiable framework that refines 3D Foundation Model reconstructions via edge-map alignment, matching or beating Bundle Adjustment at a fraction of the runtime and memory.",
+    "author": [
+      { "@type": "Person", "name": "Mattia D'Urso", "affiliation": { "@type": "Organization", "name": "Graz University of Technology" } },
+      { "@type": "Person", "name": "Christian Sormann", "affiliation": { "@type": "Organization", "name": "Sony" } },
+      { "@type": "Person", "name": "Mattia Rossi", "affiliation": { "@type": "Organization", "name": "Sony" } },
+      { "@type": "Person", "name": "Friedrich Fraundorfer", "affiliation": { "@type": "Organization", "name": "Graz University of Technology" } }
+    ],
+    "datePublished": "2026-01-01",
+    "publisher": { "@type": "Organization", "name": "European Conference on Computer Vision (ECCV)" },
+    "url": "https://mattiadurso.com/epo",
+    "image": "https://mattiadurso.com/epo/static/images/social_preview.svg",
+    "keywords": ["3D Reconstruction", "Geometric Optimization", "Structure-from-Motion", "3D Foundation Models", "Bundle Adjustment"],
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Boosting 3D Foundation Models with <b>E</b>dge-based <b>P</b>ose <b>O</b>ptimization</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=9FjTo3YAAAAJ&hl=en" target="_blank">Mattia D'Urso</a><sup>1</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=6uZVF04AAAAJ&hl=en" target="_blank">Christian Sormann</a><sup>2</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=DA3nSvgAAAAJ&hl=en" target="_blank">Mattia Rossi</a><sup>2</sup>
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=M0boL5kAAAAJ&hl=en" target="_blank">Friedrich Fraundorfer</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Graz University of Technology <sup>2</sup>Sony<br>ECCV 2026</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <a href="static/pdfs/EPO.pdf" target="_blank" class="pub-icon-link" title="Paper PDF">
+                  <span class="pub-icon-circle"><i class="fas fa-file-pdf"></i></span>
+                  <span class="pub-icon-label">Paper</span>
+                </a>
+                <!-- TODO: add arXiv id when available -->
+                <a href="#" target="_blank" class="pub-icon-link" title="arXiv">
+                  <span class="pub-icon-circle"><i class="ai ai-arxiv"></i></span>
+                  <span class="pub-icon-label">arXiv</span>
+                </a>
+                <!-- TODO: replace with the EPO code repository URL when released -->
+                <a href="#" target="_blank" class="pub-icon-link" title="Code">
+                  <span class="pub-icon-circle"><i class="fab fa-github"></i></span>
+                  <span class="pub-icon-label">Code</span>
+                </a>
+                <!-- TerraSky3D benchmark used for evaluation -->
+                <a href="https://huggingface.co/datasets/mattia-durso/TerraSky3D" target="_blank" class="pub-icon-link" title="TerraSky3D Dataset">
+                  <span class="pub-icon-circle"><i class="fas fa-database"></i></span>
+                  <span class="pub-icon-label">TerraSky3D</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="hero teaser is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="figure-stack">
+        <figure class="figure">
+          <div class="gif-wrap">
+            <img src="static/images/townhall.gif" alt="EPO refining a VGGT reconstruction of the Graz Town Hall scene (TerraSky3D)" loading="eager"/>
+            <div class="gif-bar"></div>
+          </div>
+          <figcaption>
+            EPO refining a VGGT reconstruction of the Graz Town Hall scene (TerraSky3D). Starting from the raw feed-forward output, our trackless
+            optimization aligns image edges to recover accurate camera poses and geometry — no feature extraction or track construction.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End teaser -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce <b>E</b>dge-based <b>P</b>ose <b>O</b>ptimization (<b>EPO</b>), a trackless geometric optimization framework specifically designed
+            to boost the Structure-from-Motion reconstructions generated by 3D Foundation Models. These models achieve rapid inference by bypassing the
+            time-consuming feature extraction and matching stages of traditional pipelines, where explicit correspondences between each 3D point and multiple
+            images, referred to as <i>tracks</i>, are established. However, their geometric accuracy currently falls short of traditional pipelines. While this
+            can be addressed in a post-processing step via Bundle Adjustment-like refinement, doing so requires extracting feature tracks, thus defeating the
+            original speed advantage. Instead, our fully differentiable framework uses edge map alignment as a proxy for geometric optimization, avoiding
+            feature extraction and track construction entirely. Through extensive evaluation across multiple datasets and tasks, we demonstrate that EPO
+            matches or outperforms Bundle Adjustment-like methods while requiring significantly lower runtime and memory. Notably, its reduced memory
+            footprint makes EPO suitable for consumer-grade hardware, where competing refinement methods cannot run.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Contributions -->
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">Contributions</h2>
+    <div class="content has-text-justified">
+      <ul>
+        <li>We propose a robust, differentiable, and <b>trackless</b> optimization framework that boosts the geometric accuracy of 3D Foundation Models through neural pose refinement and first-order optimization.</li>
+        <li>We introduce an <b>edge-based reprojection loss</b> and a <b>pose-based early-stopping criterion</b> that together reduce runtime to a few seconds, compared to the minutes needed by Bundle Adjustment-based refinement methods, while requiring lower memory.</li>
+        <li>We provide a comprehensive evaluation across diverse 3D Foundation Models, benchmarks, and real-world scenarios — including <b>TerraSky3D</b>, <b>ScanNet++</b>, and <b>Mip-NeRF 360</b> — demonstrating that EPO consistently performs on par with, or superior to, state-of-the-art refinement methods.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- End contributions -->
+
+<!-- Method -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">How It Works</h2>
+      <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
+        <p>
+          Given the initial geometry from a 3D Foundation Model, EPO computes for each image a Canny edge map and its Distance Transform Field (DTF), where
+          every pixel encodes the distance to the nearest edge. Rather than matching features, EPO minimizes a <b>bidirectional edge reprojection loss</b>:
+          edges from one view are reprojected into another and scored against the DTF. A pose MLP, a learnable focal scaling, and a pixel-wise affine depth
+          correction are updated by a first-order optimizer until a pose-based stopping criterion is met.
+        </p>
+      </div>
+      <div class="figure-row">
+        <figure class="figure">
+          <img src="static/images/rgb.png" alt="Input RGB image, raw VGGT depth, and the corresponding Distance Transform Field" loading="lazy"/>
+          <figcaption>Input RGB image, raw VGGT depth, and the corresponding Distance Transform Field (DTF) from Graz Townhall (TerraSky3D).</figcaption>
+        </figure>
+        <figure class="figure">
+          <img src="static/images/edges_combined.png" alt="Bidirectional edge alignment before and after EPO" loading="lazy"/>
+          <figcaption>Bidirectional edge alignment using the initial geometry (left) and after refining camera parameters and depth with EPO (right).</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method -->
+
+<!-- Pose refinement (AUC) -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Pose Accuracy &amp; Runtime</h2>
+      <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
+        <p>
+          Using VGGT as a representative 3D Foundation Model, we compare against <i>VGGT+BA</i> and <i>VGGT+Ref+BA</i>. EPO improves pose accuracy
+          (AUC@5°) on every benchmark while drastically cutting end-to-end runtime — and, unlike <i>+Ref+BA</i> (which needs ≥40&nbsp;GB of VRAM),
+          it runs on a consumer-grade RTX&nbsp;4090.
+        </p>
+      </div>
+
+      <div class="content" style="max-width: 860px; margin: 0 auto;">
+        <div class="chart-grid-2">
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">AUC@5° ↑</p>
+            <canvas id="chart-auc5"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">Runtime (s) ↓</p>
+            <canvas id="chart-time"></canvas>
+          </div>
+        </div>
+        <p class="has-text-centered is-size-7">
+          AUC@5° (higher is better) and total end-to-end wall-clock time in seconds (lower is better), averaged per dataset.
+          <sup>†</sup> run on an NVIDIA H200 due to its higher memory requirements; all other methods run on an RTX&nbsp;4090.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End pose refinement -->
+
+<!-- Generalization across 3D Foundation Models -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Generalization Across 3D Foundation Models</h2>
+      <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
+        <p>
+          Beyond RGB images for edge extraction, EPO needs only what any 3D Foundation Model already outputs — camera intrinsics, poses, and depth maps —
+          so it drops in on top of different backbones unchanged. Applied to <b>VGGT</b>, <b>MapAnything</b>, and <b>&pi;<sup>3</sup>X</b>, EPO consistently boosts pose
+          accuracy across every dataset.
+        </p>
+      </div>
+
+      <div class="content" style="max-width: 860px; margin: 0 auto;">
+        <div class="chart-grid-3">
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">VGGT</p>
+            <canvas id="chart-gen-vggt"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">MapAnything</p>
+            <canvas id="chart-gen-map"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">π³X</p>
+            <canvas id="chart-gen-pi3x"></canvas>
+          </div>
+        </div>
+        <p class="has-text-centered is-size-7">
+          AUC@5° (higher is better) for three 3D Foundation Models, shown as raw output and after EPO refinement.
+          EPO improves geometric accuracy across all models and datasets.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End generalization -->
+
+<!-- Novel View Synthesis -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Novel View Synthesis</h2>
+      <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
+        <p>
+          As a downstream proxy for reconstruction quality, we train a 3DGS model for 30,000 steps on each SfM reconstruction. On Mip-NeRF&nbsp;360,
+          VGGT+EPO yields the best PSNR, SSIM, and LPIPS among the optimization methods, preserving sharper structural detail than BA-based refinement.
+        </p>
+      </div>
+
+      <div class="figure-stack">
+        <figure class="figure">
+
+          <!-- column headers -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.3rem;">
+            <p class="has-text-centered is-size-7" style="margin:0; font-weight:600;">VGGT+Ref+BA vs GT</p>
+            <p class="has-text-centered is-size-7" style="margin:0; font-weight:600;">VGGT+EPO (Ours) vs GT</p>
+          </div>
+
+          <!-- Garden -->
+          <p class="has-text-centered is-size-7" style="margin:.6rem 0 .3rem; font-style:italic;">Garden</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.6rem;">
+            <div class="img-compare">
+              <img class="img-compare-base" src="static/images/nvs_suppl/garden/BA_Ref_00005.png" alt="Garden — VGGT+Ref+BA" loading="lazy"/>
+              <img class="img-compare-overlay" src="static/images/nvs_suppl/garden/GT_00005.png" alt="Garden — GT" loading="lazy"/>
+              <div class="img-compare-divider"><div class="img-compare-handle">&#8646;</div></div>
+              <span class="img-compare-label label-left">GT</span><span class="img-compare-label label-right">Ref+BA</span>
+            </div>
+            <div class="img-compare">
+              <img class="img-compare-base" src="static/images/nvs_suppl/garden/EA_00005.png" alt="Garden — VGGT+EPO" loading="lazy"/>
+              <img class="img-compare-overlay" src="static/images/nvs_suppl/garden/GT_00005.png" alt="Garden — GT" loading="lazy"/>
+              <div class="img-compare-divider"><div class="img-compare-handle">&#8646;</div></div>
+              <span class="img-compare-label label-left">GT</span><span class="img-compare-label label-right">EPO</span>
+            </div>
+          </div>
+
+          <!-- Flowers -->
+          <p class="has-text-centered is-size-7" style="margin:.6rem 0 .3rem; font-style:italic;">Flowers</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.6rem;">
+            <div class="img-compare">
+              <img class="img-compare-base" src="static/images/nvs_suppl/flowers/BA_Ref_00011.png" alt="Flowers — VGGT+Ref+BA" loading="lazy"/>
+              <img class="img-compare-overlay" src="static/images/nvs_suppl/flowers/GT_00011.png" alt="Flowers — GT" loading="lazy"/>
+              <div class="img-compare-divider"><div class="img-compare-handle">&#8646;</div></div>
+              <span class="img-compare-label label-left">GT</span><span class="img-compare-label label-right">Ref+BA</span>
+            </div>
+            <div class="img-compare">
+              <img class="img-compare-base" src="static/images/nvs_suppl/flowers/EA_00011.png" alt="Flowers — VGGT+EPO" loading="lazy"/>
+              <img class="img-compare-overlay" src="static/images/nvs_suppl/flowers/GT_00011.png" alt="Flowers — GT" loading="lazy"/>
+              <div class="img-compare-divider"><div class="img-compare-handle">&#8646;</div></div>
+              <span class="img-compare-label label-left">GT</span><span class="img-compare-label label-right">EPO</span>
+            </div>
+          </div>
+
+          <!-- Kitchen -->
+          <p class="has-text-centered is-size-7" style="margin:.6rem 0 .3rem; font-style:italic;">Kitchen</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.6rem;">
+            <div class="img-compare">
+              <img class="img-compare-base" src="static/images/nvs_suppl/kitchen/BA_Ref_00006.png" alt="Kitchen — VGGT+Ref+BA" loading="lazy"/>
+              <img class="img-compare-overlay" src="static/images/nvs_suppl/kitchen/GT_00006.png" alt="Kitchen — GT" loading="lazy"/>
+              <div class="img-compare-divider"><div class="img-compare-handle">&#8646;</div></div>
+              <span class="img-compare-label label-left">GT</span><span class="img-compare-label label-right">Ref+BA</span>
+            </div>
+            <div class="img-compare">
+              <img class="img-compare-base" src="static/images/nvs_suppl/kitchen/EA_00006.png" alt="Kitchen — VGGT+EPO" loading="lazy"/>
+              <img class="img-compare-overlay" src="static/images/nvs_suppl/kitchen/GT_00006.png" alt="Kitchen — GT" loading="lazy"/>
+              <div class="img-compare-divider"><div class="img-compare-handle">&#8646;</div></div>
+              <span class="img-compare-label label-left">GT</span><span class="img-compare-label label-right">EPO</span>
+            </div>
+          </div>
+
+          <figcaption>
+            Qualitative Novel View Synthesis on Mip-NeRF&nbsp;360 (<i>Garden</i>, <i>Bicycle</i>, <i>Flowers</i>, <i>Kitchen</i>).
+            Drag each slider to reveal the ground-truth held-out view (left) against VGGT+Ref+BA or VGGT+EPO (right).
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="content" style="max-width: 620px; margin: 1.75rem auto 0;">
+        <div class="table-container">
+          <table class="table is-bordered is-narrow is-hoverable results-table" style="margin: 0 auto;">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th class="has-text-right">PSNR↑</th>
+                <th class="has-text-right">SSIM↑</th>
+                <th class="has-text-right">LPIPS↓</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><i>GT (reference)</i></td><td><i>26.69</i></td><td><i>0.831</i></td><td><i>0.209</i></td></tr>
+              <tr><td>VGGT</td><td>20.56</td><td>0.555</td><td>0.422</td></tr>
+              <tr><td>VGGT+BA</td><td>22.70</td><td>0.661</td><td>0.339</td></tr>
+              <tr><td>VGGT+Ref+BA</td><td>23.06</td><td>0.688</td><td>0.320</td></tr>
+              <tr><td><b>VGGT+EPO (Ours)</b></td><td><b>23.93</b></td><td><b>0.721</b></td><td><b>0.284</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="has-text-centered is-size-7">
+          Mean Novel View Synthesis quality on Mip-NeRF&nbsp;360 (3DGS, 30k steps). Best among optimization methods in bold; GT is the COLMAP reference.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Novel View Synthesis -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@inproceedings{durso2026epo,
+        title={Boosting 3D Foundation Models with Edge-based Pose Optimization},
+        author={D'Urso, Mattia and Sormann, Christian and Rossi, Mattia and Fraundorfer, Friedrich},
+        booktitle={European Conference on Computer Vision (ECCV)},
+        year={2026}
+      }</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p class="is-size-7" style="color:var(--text-light);">
+            Graz University of Technology &nbsp;&middot;&nbsp; Sony &nbsp;&middot;&nbsp; 2026
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </main>
+
+  <script src="static/js/chart.umd.min.js"></script>
+  <script>
+  Chart.defaults.font.family = 'Inter, sans-serif';
+
+  var DATASETS = ['TerraSky3D', 'ScanNet++', 'Mip-NeRF 360'];
+  var TICK    = { font: { size: 12 }, color: '#4b5563' };
+  var TICK_SM = { font: { size: 11 }, color: '#4b5563' };
+  var LEGEND    = { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12, padding: 8, color: '#374151' } };
+  var LEGEND_SM = { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10, padding: 6, color: '#374151' } };
+  var YGRID = { color: '#f1f5f9' };
+
+  var methods = [
+    { label: 'VGGT',            color: '#94a3b8', auc: [56.8, 55.6, 72.2], time: [31.0, 37.1, 41.9]   },
+    { label: 'VGGT+BA',         color: '#93c5fd', auc: [71.1, 70.0, 85.5], time: [226.1, 171.6, 103.9] },
+    { label: 'VGGT+Ref+BA†',   color: '#fbbf24', auc: [75.5, 70.9, 87.8], time: [337.7, 303.5, 210.2] },
+    { label: 'VGGT+EPO (Ours)', color: '#2563eb', auc: [79.2, 77.1, 90.3], time: [44.6, 52.1, 49.6]   }
+  ];
+
+  var runtimeLabels = {
+    id: 'runtimeLabels',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      var vggtTimes = chart.data.datasets[0].data;
+      chart.data.datasets.forEach(function(dataset, di) {
+        var meta = chart.getDatasetMeta(di);
+        if (!meta.visible) return;
+        meta.data.forEach(function(bar, i) {
+          var ratio = dataset.data[i] / vggtTimes[i];
+          var label = di === 0 ? '1×' : ratio.toFixed(1) + '×';
+          ctx.save();
+          ctx.font = 'bold 9px Inter, sans-serif';
+          ctx.fillStyle = '#374151';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(label, bar.x, bar.y - 3);
+          ctx.restore();
+        });
+      });
+    }
+  };
+
+  // Generalization charts are ~twice as tall on desktop (aspectRatio 1 vs the default 2); mobile keeps the wider 2.
+  var GEN_ASPECT = window.matchMedia('(min-width: 769px)').matches ? 1 : 2;
+
+  // Map each canvas id to a factory that builds its Chart config
+  var chartFactories = {
+    'chart-auc5': function(el) {
+      return new Chart(el, {
+        type: 'bar',
+        data: {
+          labels: DATASETS,
+          datasets: methods.map(function(m) {
+            return { label: m.label, data: m.auc, backgroundColor: m.color, borderRadius: 3 };
+          })
+        },
+        options: {
+          responsive: true, maintainAspectRatio: true,
+          plugins: { legend: LEGEND },
+          scales: {
+            x: { grid: { display: false }, ticks: TICK },
+            y: { min: 40, max: 100, grid: YGRID, border: { display: false },
+                 ticks: { font: { size: 11 }, color: '#4b5563' } }
+          }
+        }
+      });
+    },
+    'chart-time': function(el) {
+      return new Chart(el, {
+        type: 'bar',
+        plugins: [runtimeLabels],
+        data: {
+          labels: DATASETS,
+          datasets: methods.map(function(m) {
+            return { label: m.label, data: m.time, backgroundColor: m.color, borderRadius: 3 };
+          })
+        },
+        options: {
+          responsive: true, maintainAspectRatio: true,
+          layout: { padding: { top: 20 } },
+          plugins: { legend: LEGEND },
+          scales: {
+            x: { grid: { display: false }, ticks: TICK },
+            y: { grid: YGRID, border: { display: false },
+                 ticks: { font: { size: 11 }, color: '#4b5563', callback: function(v) { return v + 's'; } } }
+          }
+        }
+      });
+    },
+    'chart-gen-vggt': function(el) {
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS, datasets: [
+        { label: 'Raw',  data: [56.8, 55.6, 72.2], backgroundColor: '#bfdbfe', borderRadius: 3 },
+        { label: '+EPO', data: [79.2, 77.1, 90.3], backgroundColor: '#1d4ed8', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, plugins: { legend: LEGEND_SM },
+        scales: { x: { grid: { display: false }, ticks: TICK_SM },
+                  y: { min: 20, max: 100, grid: YGRID, border: { display: false },
+                       ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
+    },
+    'chart-gen-map': function(el) {
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS, datasets: [
+        { label: 'Raw',  data: [53.0, 37.3, 41.4], backgroundColor: '#bbf7d0', borderRadius: 3 },
+        { label: '+EPO', data: [78.3, 60.4, 85.9], backgroundColor: '#15803d', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, plugins: { legend: LEGEND_SM },
+        scales: { x: { grid: { display: false }, ticks: TICK_SM },
+                  y: { min: 20, max: 100, grid: YGRID, border: { display: false },
+                       ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
+    },
+    'chart-gen-pi3x': function(el) {
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS, datasets: [
+        { label: 'Raw',  data: [65.1, 70.0, 71.8], backgroundColor: '#fde68a', borderRadius: 3 },
+        { label: '+EPO', data: [81.2, 80.3, 85.9], backgroundColor: '#b45309', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, plugins: { legend: LEGEND_SM },
+        scales: { x: { grid: { display: false }, ticks: TICK_SM },
+                  y: { min: 20, max: 100, grid: YGRID, border: { display: false },
+                       ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
+    }
+  };
+
+  // Render each chart the first time its canvas scrolls into view
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var id = entry.target.id;
+      if (chartFactories[id]) {
+        chartFactories[id](entry.target);
+        delete chartFactories[id];
+      }
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+
+  Object.keys(chartFactories).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+  </script>
+
+  <script>
+  (function () {
+    function initCompare(el) {
+      var overlay = el.querySelector('.img-compare-overlay');
+      var divider = el.querySelector('.img-compare-divider');
+      if (!overlay || !divider) return;
+
+      function setPos(pct) {
+        pct = Math.min(100, Math.max(0, pct));
+        overlay.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+        divider.style.left = pct + '%';
+      }
+      function pctFromX(clientX) {
+        var rect = el.getBoundingClientRect();
+        return (clientX - rect.left) / rect.width * 100;
+      }
+
+      var dragging = false;
+      el.addEventListener('mousedown', function (e) { e.preventDefault(); dragging = true; setPos(pctFromX(e.clientX)); });
+      window.addEventListener('mousemove', function (e) { if (dragging) setPos(pctFromX(e.clientX)); });
+      window.addEventListener('mouseup', function () { dragging = false; });
+
+      el.addEventListener('touchstart', function (e) { dragging = true; setPos(pctFromX(e.touches[0].clientX)); }, { passive: true });
+      window.addEventListener('touchmove', function (e) { if (dragging) setPos(pctFromX(e.touches[0].clientX)); }, { passive: true });
+      window.addEventListener('touchend', function () { dragging = false; });
+
+      setPos(25);
+    }
+
+    function setup() {
+      document.querySelectorAll('.img-compare').forEach(initCompare);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+  })();
+  </script>
+
+  </body>
+  </html>
