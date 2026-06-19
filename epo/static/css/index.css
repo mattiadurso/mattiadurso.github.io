@@ -904,6 +904,11 @@ a:focus {
   overflow: hidden;
 }
 
+/* lock the box ratio so swapping the GIF source out (to pause off-screen) keeps layout stable */
+.gif-wrap img {
+  aspect-ratio: 1600 / 906;
+}
+
 .gif-bar {
   position: absolute;
   bottom: 0;
@@ -912,6 +917,11 @@ a:focus {
   width: 0%;
   background: var(--primary-color);
   animation: gif-progress 24s linear infinite;
+}
+
+/* when off-screen: drop the animation so the bar resets to 0% and restarts in sync on re-entry */
+.gif-bar-paused {
+  animation: none;
 }
 
 @keyframes gif-progress {

@@ -185,8 +185,9 @@
             <div class="gif-bar"></div>
           </div>
           <figcaption>
-            EPO refining a VGGT reconstruction of the Graz Town Hall scene (TerraSky3D). Starting from the raw feed-forward output, our trackless
-            optimization aligns image edges to recover accurate camera poses and geometry — no feature extraction or track construction.
+            EPO refining a VGGT reconstruction of Graz Town Hall (TerraSky3D). Starting from the raw <span style="color:#BA2722; font-weight:600;">feed-forward output</span>, our trackless
+            optimization aligns image edges to recover accurate camera poses and geometry with no feature extraction or track construction.
+            The <span style="color:#307D49; font-weight:600;">ground truth</span> is shown for reference. 
           </figcaption>
         </figure>
       </div>
@@ -655,6 +656,38 @@
     } else {
       setup();
     }
+  })();
+  </script>
+
+  <script>
+  // Play the teaser GIF only while it is on screen; restart it from the start when scrolled back into view.
+  (function () {
+    var wrap = document.querySelector('.gif-wrap');
+    if (!wrap || !('IntersectionObserver' in window)) return;
+    var gif = wrap.querySelector('img');
+    if (!gif) return;
+    var bar = wrap.querySelector('.gif-bar');
+
+    var GIF_SRC = gif.getAttribute('src');
+    var BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    var playing = true; // the teaser is visible on initial load; the observer corrects this if not
+
+    function play() {
+      gif.src = GIF_SRC;                                  // reassigning restarts the GIF from frame 0 (served from cache)
+      if (bar) bar.classList.remove('gif-bar-paused');    // restart the progress bar in sync
+    }
+    function pause() {
+      gif.src = BLANK;                                    // stop the loop while off-screen
+      if (bar) bar.classList.add('gif-bar-paused');
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      var visible = entries[entries.length - 1].isIntersecting;
+      if (visible && !playing) { play(); playing = true; }
+      else if (!visible && playing) { pause(); playing = false; }
+    }, { threshold: 0 });
+
+    io.observe(gif);
   })();
   </script>
 
