@@ -197,7 +197,7 @@
             <div class="is-size-5 publication-authors">
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=9FjTo3YAAAAJ&hl=en" target="_blank">Mattia D'Urso</a><sup>1</sup>
+                <a href="https://mattiadurso.com/" target="_blank">Mattia D'Urso</a><sup>1</sup>
               </span>
               <span class="author-block">
                 <a href="https://scholar.google.com/citations?user=1JwKYK8AAAAJ&hl=en" target="_blank">Emanuele Santellani</a><sup>1</sup>
@@ -224,51 +224,28 @@
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
-                         <!-- TODO: Update with your arXiv paper ID -->
-                      <span class="link-block">
-                        <a href="http://arxiv.org/abs/2601.13126" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
+                      <a href="http://arxiv.org/abs/2601.13126" target="_blank" class="pub-icon-link" title="Paper">
+                        <span class="pub-icon-circle"><i class="fas fa-file-pdf"></i></span>
+                        <span class="pub-icon-label">Paper</span>
                       </a>
-                    </span>
-
-                    <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
-                      <a href="static/pdfs/SANDesc___3DV_SM.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
-                  <!-- TODO: Replace with your GitHub repository URL -->
-                  <span class="link-block">
-                    <a href="https://github.com/mattiadurso/sandesc" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-              <span class="link-block">
-                  <a href="https://github.com/mattiadurso/PoseBench" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fas fa-database"></i>
-                  </span>
-                  <span>GRAZ 4K</span>
-                </a>
-              </span>
-
-            </div>
-          </div>
+                      <a href="http://arxiv.org/abs/2601.13126" target="_blank" class="pub-icon-link" title="arXiv">
+                        <span class="pub-icon-circle"><i class="ai ai-arxiv"></i></span>
+                        <span class="pub-icon-label">arXiv</span>
+                      </a>
+                      <a href="static/pdfs/SANDesc___3DV_SM.pdf" target="_blank" class="pub-icon-link" title="Supplementary">
+                        <span class="pub-icon-circle"><i class="fas fa-file-pdf"></i></span>
+                        <span class="pub-icon-label">Supplementary</span>
+                      </a>
+                      <a href="https://github.com/mattiadurso/sandesc" target="_blank" class="pub-icon-link" title="Code">
+                        <span class="pub-icon-circle"><i class="fab fa-github"></i></span>
+                        <span class="pub-icon-label">Code</span>
+                      </a>
+                      <a href="https://github.com/mattiadurso/PoseBench" target="_blank" class="pub-icon-link" title="Graz4K Benchmark">
+                        <span class="pub-icon-circle"><i class="fas fa-database"></i></span>
+                        <span class="pub-icon-label">Graz4K</span>
+                      </a>
+                    </div>
+                  </div>
         </div>
       </div>
     </div>
@@ -338,28 +315,33 @@
 </section>
 <!-- End model architecture -->
 
-<!-- Results tables -->
+<!-- Quantitative results -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <div class="figure-stack">
-        <figure class="figure">
-          <img src="static/images/graz4k.png" alt="graz4k" loading="lazy"/>
-          <figcaption>Graz4K results with a 2048 keypoints budget for three resolutions. DeDoDe-B and -G share the detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> achieves the highest scores in all cases.</figcaption>
-        </figure>
-        <figure class="figure">
-          <img src="static/images/md1500.png" alt="md1500" loading="lazy"/>
-          <figcaption>MegaDepth-1500 results with 2048 and 30 000 keypoints budgets. DeDoDe-B and -G share the same detector. DeDoDe+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> scores the highest AUC@5 with 2048 keypoints.</figcaption>
-        </figure>
-        <figure class="figure">
-          <img src="static/images/imc.png" alt="imc" loading="lazy"/>
-          <figcaption>The Image Matching Challenge 2021 Phototourim test set results in terms of AUC@5. The keypoints budget is set to 2048. DeDoDe-B and -G share the same detector. ALIKED+<b>SAN<span style="font-variant: small-caps;">Desc</span></b> overall achieves the highest average score.</figcaption>
-        </figure>
+      <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
+
+      <!-- Graz4K (AUC@5, 4K) -->
+      <div class="content" style="max-width: 520px; margin: 0 auto 2.5rem;">
+        <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">Graz4K @ 4K &mdash; AUC@5&uparrow;</p>
+        <canvas id="chart-graz4k"></canvas>
+      </div>
+
+      <!-- MegaDepth-1500 (AUC@5, 2048 kpts) -->
+      <div class="content" style="max-width: 520px; margin: 0 auto 2.5rem;">
+        <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">MegaDepth-1500 @ 2048 kpts &mdash; AUC@5&uparrow;</p>
+        <canvas id="chart-md1500"></canvas>
+      </div>
+
+      <!-- IMC21 (AUC@5, average over scenes) -->
+      <div class="content" style="max-width: 520px; margin: 0 auto;">
+        <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">IMC 2021 (avg over 9 scenes) &mdash; AUC@5&uparrow;</p>
+        <canvas id="chart-imc"></canvas>
       </div>
     </div>
   </div>
 </section>
-<!-- End results tables -->
+<!-- End quantitative results -->
 
 <!-- GRAZ4K sparse reconstructions -->
 
@@ -468,10 +450,158 @@
 </footer>
 
 <!-- Statcounter tracking code -->
-  
+
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
     <!-- End of Statcounter Code -->
+
+  <script src="static/js/chart.umd.min.js"></script>
+  <script>
+  Chart.defaults.font.family = 'Inter, sans-serif';
+
+  // Method palette — original detectors paired with their +SANDesc variant by hue (light → saturated).
+  var SANDESC_METHODS = [
+    { label: 'SuperPoint',              color: '#93c5fd' },
+    { label: 'SuperPoint + SANDesc',    color: '#1d4ed8' },
+    { label: 'DISK',                    color: '#fdba74' },
+    { label: 'DISK + SANDesc',          color: '#c2410c' },
+    { label: 'RIPE',                    color: '#86efac' },
+    { label: 'RIPE + SANDesc',          color: '#15803d' },
+    { label: 'ALIKED',                  color: '#fca5a5' },
+    { label: 'ALIKED + SANDesc',        color: '#b91c1c' },
+    { label: 'DeDoDe-G',                color: '#e7c9a8' },
+    { label: 'DeDoDe + SANDesc',        color: '#7c2d12' }
+  ];
+
+  // AUC@5 per benchmark, row-aligned to SANDESC_METHODS. null = OOM.
+  var GRAZ4K = {                       // 4K only
+    SuperPoint:           [32.4],
+    'SuperPoint + SANDesc':[57.7],
+    DISK:                 [33.5],
+    'DISK + SANDesc':     [48.3],
+    RIPE:                 [34.0],
+    'RIPE + SANDesc':     [56.7],
+    ALIKED:               [44.4],
+    'ALIKED + SANDesc':   [61.8],
+    'DeDoDe-G':           [null],
+    'DeDoDe + SANDesc':   [52.2]
+  };
+
+  var MD1500 = {                       // 2048 kpts only
+    SuperPoint:           [30.1],
+    'SuperPoint + SANDesc':[42.0],
+    DISK:                 [35.3],
+    'DISK + SANDesc':     [37.0],
+    RIPE:                 [43.1],
+    'RIPE + SANDesc':     [43.6],
+    ALIKED:               [42.0],
+    'ALIKED + SANDesc':   [43.4],
+    'DeDoDe-G':           [46.1],
+    'DeDoDe + SANDesc':   [46.2]
+  };
+
+  var IMC = {                          // AVG over 9 scenes
+    SuperPoint:           [21.3],
+    'SuperPoint + SANDesc':[31.6],
+    DISK:                 [38.8],
+    'DISK + SANDesc':     [38.8],
+    RIPE:                 [34.7],
+    'RIPE + SANDesc':     [37.0],
+    ALIKED:               [40.1],
+    'ALIKED + SANDesc':   [40.7],
+    'DeDoDe-G':           [36.9],
+    'DeDoDe + SANDesc':   [34.2]
+  };
+
+  function datasetsFor(table) {
+    return SANDESC_METHODS.map(function (m) {
+      return { label: m.label, data: table[m.label], backgroundColor: m.color, borderRadius: 2, borderWidth: 0 };
+    });
+  }
+
+  var LEGEND = { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10, padding: 6, color: '#374151' } };
+  var TICK   = { font: { size: 11 }, color: '#4b5563' };
+  var YGRID  = { color: '#f1f5f9' };
+
+  // Draws a rotated "Out of Memory" label in the empty slot of any null-valued bar.
+  var oomLabels = {
+    id: 'oomLabels',
+    afterDatasetsDraw: function (chart) {
+      var ctx = chart.ctx;
+      var area = chart.chartArea;
+      chart.data.datasets.forEach(function (dataset, di) {
+        var meta = chart.getDatasetMeta(di);
+        if (!meta.visible) return;
+        meta.data.forEach(function (bar, i) {
+          if (dataset.data[i] != null) return;
+          ctx.save();
+          ctx.translate(bar.x, area.bottom - 6);
+          ctx.rotate(-Math.PI / 2);
+          ctx.font = '600 13px Inter, sans-serif';
+          ctx.fillStyle = '#374151';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('Out of Memory', 0, 0);
+          ctx.restore();
+        });
+      });
+    }
+  };
+
+  function barConfig(labels, table, yMin, yMax, aspect) {
+    return {
+      type: 'bar',
+      plugins: [oomLabels],
+      data: { labels: labels, datasets: datasetsFor(table) },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: aspect,
+        plugins: { legend: LEGEND, tooltip: { callbacks: { label: function (c) {
+          return c.dataset.label + ': ' + (c.parsed.y == null ? 'OOM' : c.parsed.y.toFixed(1));
+        } } } },
+        scales: {
+          x: { grid: { display: false }, ticks: TICK },
+          y: { min: yMin, max: yMax, grid: YGRID, border: { display: false },
+               ticks: { font: { size: 11 }, color: '#4b5563' } }
+        }
+      }
+    };
+  }
+
+  var IS_DESKTOP = window.matchMedia('(min-width: 769px)').matches;
+
+  var SINGLE_ASPECT = IS_DESKTOP ? 1.15 : 0.95;
+
+  var chartFactories = {
+    'chart-graz4k': function (el) {
+      return new Chart(el, barConfig(['4K'], GRAZ4K, 20, 70, SINGLE_ASPECT));
+    },
+    'chart-md1500': function (el) {
+      return new Chart(el, barConfig(['2048 kpts'], MD1500, 20, 50, SINGLE_ASPECT));
+    },
+    'chart-imc': function (el) {
+      return new Chart(el, barConfig(['AVG'], IMC, 10, 45, SINGLE_ASPECT));
+    }
+  };
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var id = entry.target.id;
+      if (chartFactories[id]) {
+        chartFactories[id](entry.target);
+        delete chartFactories[id];
+      }
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+
+  Object.keys(chartFactories).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+  </script>
 
   </body>
   </html>

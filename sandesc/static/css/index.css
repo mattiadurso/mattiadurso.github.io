@@ -778,7 +778,18 @@ a:focus {
 @media (min-width: 769px) {
   .figure-row {
     grid-template-columns: 1fr 1fr;
-    align-items: start;
+    align-items: stretch;
+  }
+
+  .figure-row .figure {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .figure-row .figure img {
+    flex: 1;
+    min-height: 0;
+    object-fit: contain;
   }
 }
 
@@ -842,4 +853,65 @@ a:focus {
 }
 
 
+/* Icon-only publication links in the hero */
+.pub-icon-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  margin: 0.5rem 0.6rem;
+  transition: var(--transition);
+}
 
+.pub-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  color: white;
+  font-size: 1.35rem;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+}
+
+.pub-icon-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.pub-icon-link:hover .pub-icon-circle {
+  background: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pub-icon-link:hover .pub-icon-label {
+  color: var(--primary-color);
+}
+
+/* Responsive chart grids (2 cols / 3 cols on desktop, single column on mobile) */
+.chart-grid-2,
+.chart-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 769px) {
+  .chart-grid-2 { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .chart-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem; }
+}
+
+/* Results tables: right-align numeric result columns, keep the label column left */
+.results-table td:not(:first-child),
+.results-table th.has-text-right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
