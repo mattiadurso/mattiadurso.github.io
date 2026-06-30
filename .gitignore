@@ -6,3 +6,4 @@ epo/gifs/
 epo/*.pdf
 **/.DS_Store
 sandesc/sandesc_latex/
+epo/plots_png/

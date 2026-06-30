@@ -538,15 +538,6 @@
       ctx.lineTo(area.right, y);
       ctx.stroke();
       ctx.setLineDash([]);
-      var text = '1 min';
-      ctx.font = 'bold 10px Inter, sans-serif';
-      var tw = ctx.measureText(text).width;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-      ctx.fillRect(area.left, y - 16, tw + 8, 14);
-      ctx.fillStyle = 'rgba(220, 38, 38, 0.85)';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(text, area.left + 4, y - 9);
       ctx.restore();
     }
   };
@@ -595,7 +586,8 @@
             y: { min: 0, max: 360,
                  afterBuildTicks: function(axis) { axis.ticks = [60, 120, 180, 240, 300, 360].map(function(v) { return { value: v }; }); },
                  grid: YGRID, border: { display: false },
-                 ticks: { font: { size: 11 }, color: '#4b5563' } }
+                 ticks: { font: function(ctx) { return { size: 11, weight: ctx.tick && ctx.tick.value === 60 ? 'bold' : 'normal' }; },
+                          color: function(ctx) { return ctx.tick && ctx.tick.value === 60 ? '#dc2626' : '#4b5563'; } } }
           }
         }
       });
