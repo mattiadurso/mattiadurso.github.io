@@ -287,8 +287,17 @@
             <canvas id="chart-time"></canvas>
           </div>
         </div>
+        <!-- Shared legend for both charts, so their plot areas stay identical and aligned. torch/triton apply to the runtime chart only. -->
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:.35rem 1.1rem; margin:.6rem 0 .55rem; font-family:Inter,sans-serif; font-size:11px; color:#374151;">
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#94a3b8;"></span>VGGT</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#93c5fd;"></span>VGGT+BA</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#fbbf24;"></span>VGGT+Ref+BA<sup>†</sup></span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#ef4444;"></span>VGGT+EPO (torch)</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#2563eb;"></span>VGGT+EPO (triton)</span>
+        </div>
         <p class="has-text-centered is-size-7">
           AUC@5° (higher is better) and total end-to-end wall-clock time in seconds (lower is better), averaged per dataset.
+          EPO&nbsp;(torch) and EPO&nbsp;(triton) return the same AUC up to numerical noise, so the AUC bar is shown split between the two.
           <sup>†</sup> run on an NVIDIA H200 due to its higher memory requirements; all other methods run on an RTX&nbsp;4090.
         </p>
       </div>
@@ -488,7 +497,6 @@
   var DATASETS = ['TerraSky3D', 'ScanNet++', 'Mip-NeRF 360'];
   var TICK    = { font: { size: 12 }, color: '#4b5563' };
   var TICK_SM = { font: { size: 11 }, color: '#4b5563' };
-  var LEGEND    = { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12, padding: 8, color: '#374151' } };
   var LEGEND_SM = { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10, padding: 6, color: '#374151' } };
   var YGRID = { color: '#f1f5f9' };
 
@@ -497,6 +505,17 @@
     { label: 'VGGT+BA',         color: '#93c5fd', auc: [71.1, 70.0, 85.5], time: [226.1, 171.6, 103.9] },
     { label: 'VGGT+Ref+BA†',   color: '#fbbf24', auc: [75.5, 70.9, 87.8], time: [337.7, 303.5, 210.2] },
     { label: 'VGGT+EPO (Ours)', color: '#2563eb', auc: [79.2, 77.1, 90.3], time: [44.6, 52.1, 49.6]   }
+  ];
+
+  // Runtime chart shows an extra bar: the slow torch EPO times from Tab. 1 alongside
+  // the fast triton version, to make the speedup explicit. The AUC chart keeps a single EPO
+  // bar (accuracy is identical for both), drawn diagonally split torch/triton to tie them together.
+  var runtimeMethods = [
+    { label: 'VGGT',              color: '#94a3b8', time: [31.0, 37.1, 41.9]    },
+    { label: 'VGGT+BA',           color: '#93c5fd', time: [226.1, 171.6, 103.9] },
+    { label: 'VGGT+Ref+BA†',     color: '#fbbf24', time: [337.7, 303.5, 210.2] },
+    { label: 'VGGT+EPO (torch)',  color: '#ef4444', time: [114.9, 121.0, 82.0]  },
+    { label: 'VGGT+EPO (triton)', color: '#2563eb', time: [44.6, 52.1, 49.6]    }
   ];
 
   var runtimeLabels = {
@@ -522,7 +541,7 @@
     }
   };
 
-  // Dashed red threshold at the one-minute mark, to highlight that our method stays under a minute.
+  // Dashed green threshold at the one-minute mark, to highlight that our method stays under a minute.
   var minuteLine = {
     id: 'minuteLine',
     afterDatasetsDraw: function(chart) {
@@ -533,12 +552,53 @@
       ctx.beginPath();
       ctx.setLineDash([6, 4]);
       ctx.lineWidth = 1.5;
-      ctx.strokeStyle = 'rgba(220, 38, 38, 0.3)';
+      ctx.strokeStyle = 'rgba(34, 197, 94, 0.65)';
       ctx.moveTo(area.left, y);
       ctx.lineTo(area.right, y);
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.restore();
+    }
+  };
+
+  // Draw the AUC chart's EPO bar (last dataset) split along its main diagonal (top-left to
+  // bottom-right corner): triton (#2563eb) upper-right, torch (#ef4444) lower-left. Clipped to a
+  // rounded-top rect so the corners match the other bars, and drawn from the bars' current
+  // (animated) geometry so it grows with them.
+  var diagonalSplitEPO = {
+    id: 'diagonalSplitEPO',
+    afterDatasetsDraw: function(chart) {
+      var epoIndex = chart.data.datasets.length - 1;
+      var meta = chart.getDatasetMeta(epoIndex);
+      if (!meta.visible) return;
+      var area = chart.chartArea;
+      var ctx = chart.ctx;
+      meta.data.forEach(function(bar) {
+        var left = bar.x - bar.width / 2, right = bar.x + bar.width / 2, r = 3;
+        // bar.base can resolve below the plot (Chart.js clips its own bars to the chart area,
+        // but plugin drawing isn't clipped) — clamp to the chart area or the fill spills past the axis
+        var top = Math.max(bar.y, area.top), bottom = Math.min(bar.base, area.bottom);
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(left + r, top);
+        ctx.lineTo(right - r, top);
+        ctx.arcTo(right, top, right, top + r, r);
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(left, bottom);
+        ctx.lineTo(left, top + r);
+        ctx.arcTo(left, top, left + r, top, r);
+        ctx.closePath();
+        ctx.clip();
+        ctx.fillStyle = '#2563eb'; // triton — above the main diagonal
+        ctx.beginPath();
+        ctx.moveTo(left, top); ctx.lineTo(right, top); ctx.lineTo(right, bottom); ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#ef4444'; // torch — below
+        ctx.beginPath();
+        ctx.moveTo(left, top); ctx.lineTo(right, bottom); ctx.lineTo(left, bottom); ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      });
     }
   };
 
@@ -548,17 +608,28 @@
   // Map each canvas id to a factory that builds its Chart config
   var chartFactories = {
     'chart-auc5': function(el) {
+      // Tooltip swatch for the EPO bar: a small canvas tile split like the bar itself
+      // (triton blue above the main diagonal, torch red below), used as its pointStyle.
+      var epoSwatch = document.createElement('canvas');
+      epoSwatch.width = 12; epoSwatch.height = 12;
+      var sctx = epoSwatch.getContext('2d');
+      sctx.fillStyle = '#2563eb';
+      sctx.beginPath(); sctx.moveTo(0, 0); sctx.lineTo(12, 0); sctx.lineTo(12, 12); sctx.closePath(); sctx.fill();
+      sctx.fillStyle = '#ef4444';
+      sctx.beginPath(); sctx.moveTo(0, 0); sctx.lineTo(12, 12); sctx.lineTo(0, 12); sctx.closePath(); sctx.fill();
       return new Chart(el, {
         type: 'bar',
+        plugins: [diagonalSplitEPO],
         data: {
           labels: DATASETS,
-          datasets: methods.map(function(m) {
-            return { label: m.label, data: m.auc, backgroundColor: m.color, borderRadius: 3 };
+          datasets: methods.map(function(m, mi) {
+            return { label: m.label, data: m.auc, backgroundColor: m.color, borderRadius: 3,
+                     pointStyle: mi === methods.length - 1 ? epoSwatch : 'rect' };
           })
         },
         options: {
           responsive: true, maintainAspectRatio: true,
-          plugins: { legend: LEGEND },
+          plugins: { legend: { display: false }, tooltip: { usePointStyle: true } },
           scales: {
             x: { grid: { display: false }, ticks: TICK },
             y: { min: 50, max: 100, grid: YGRID, border: { display: false },
@@ -573,21 +644,21 @@
         plugins: [runtimeLabels, minuteLine],
         data: {
           labels: DATASETS,
-          datasets: methods.map(function(m) {
+          datasets: runtimeMethods.map(function(m) {
             return { label: m.label, data: m.time, backgroundColor: m.color, borderRadius: 3 };
           })
         },
         options: {
           responsive: true, maintainAspectRatio: true,
           layout: { padding: { top: 20 } },
-          plugins: { legend: LEGEND },
+          plugins: { legend: { display: false } },
           scales: {
             x: { grid: { display: false }, ticks: TICK },
             y: { min: 0, max: 360,
                  afterBuildTicks: function(axis) { axis.ticks = [60, 120, 180, 240, 300, 360].map(function(v) { return { value: v }; }); },
                  grid: YGRID, border: { display: false },
                  ticks: { font: function(ctx) { return { size: 11, weight: ctx.tick && ctx.tick.value === 60 ? 'bold' : 'normal' }; },
-                          color: function(ctx) { return ctx.tick && ctx.tick.value === 60 ? '#dc2626' : '#4b5563'; } } }
+                          color: function(ctx) { return ctx.tick && ctx.tick.value === 60 ? '#16a34a' : '#4b5563'; } } }
           }
         }
       });
