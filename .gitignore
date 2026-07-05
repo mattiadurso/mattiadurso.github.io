@@ -7,3 +7,8 @@ epo/*.pdf
 **/.DS_Store
 sandesc/sandesc_latex/
 epo/plots_png/
+
+# CV: ship only the compiled PDF, keep LaTeX source/build files out.
+CV/*
+!CV/cv.pdf
+!CV/cv.tex
