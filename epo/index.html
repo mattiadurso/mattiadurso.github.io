@@ -250,11 +250,29 @@
       </div>
       <div class="figure-row">
         <figure class="figure">
-          <img src="static/images/rgb.png" alt="Input RGB image, raw VGGT depth, and the corresponding Distance Transform Field" loading="lazy"/>
+          <div class="figure-panels">
+            <img src="static/images/rgb_input.png" alt="Input RGB image" loading="lazy"/>
+            <img src="static/images/rgb_depth.png" alt="Raw VGGT depth" loading="lazy"/>
+            <img src="static/images/rgb_dtf.png" alt="Distance Transform Field" loading="lazy"/>
+          </div>
           <figcaption>Input RGB image, raw VGGT depth, and the corresponding Distance Transform Field (DTF) from Graz Townhall (TerraSky3D).</figcaption>
         </figure>
         <figure class="figure">
-          <img src="static/images/edges_combined.png" alt="Bidirectional edge alignment before and after EPO" loading="lazy"/>
+          <div style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; margin-bottom:0.3rem;">
+            <p class="has-text-centered is-size-7" style="margin:0; font-weight:600;">Before</p>
+            <span aria-hidden="true" style="color:var(--primary-color); line-height:1; font-size:1.25rem;">&#10230;</span>
+            <p class="has-text-centered is-size-7" style="margin:0; font-weight:600;">After</p>
+          </div>
+          <div class="figure-panels">
+            <div class="figure-panel-pair">
+              <img src="static/images/edges_before_1.png" alt="Edge alignment with the initial geometry, view 1" loading="lazy"/>
+              <img src="static/images/edges_before_2.png" alt="Edge alignment with the initial geometry, view 2" loading="lazy"/>
+            </div>
+            <div class="figure-panel-pair">
+              <img src="static/images/edges_after_1.png" alt="Edge alignment after EPO, view 1" loading="lazy"/>
+              <img src="static/images/edges_after_2.png" alt="Edge alignment after EPO, view 2" loading="lazy"/>
+            </div>
+          </div>
           <figcaption>Bidirectional edge alignment using the initial geometry (left) and after refining camera parameters and depth with EPO (right).</figcaption>
         </figure>
       </div>

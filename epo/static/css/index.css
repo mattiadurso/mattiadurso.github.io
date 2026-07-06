@@ -786,10 +786,9 @@ a:focus {
     flex-direction: column;
   }
 
-  .figure-row .figure img {
+  .figure-row .figure .figure-panels {
     flex: 1;
     min-height: 0;
-    object-fit: contain;
   }
 }
 
@@ -815,6 +814,24 @@ a:focus {
   font-size: 1rem;
   line-height: 1.55;
   color: var(--text-secondary);
+}
+
+/* Multi-panel figures: each panel is its own image so every corner rounds equally */
+.figure-panels {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.figure-panel-pair {
+  display: flex;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.figure-panels img {
+  width: auto;
+  min-width: 0;
 }
 
 /* Static video grid (replaces video carousel) */
