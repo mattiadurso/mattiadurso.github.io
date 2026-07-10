@@ -154,11 +154,12 @@ a:hover {
 }
 
 .social-links a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   color: #57534e;
   background: #ffffff;
@@ -181,14 +182,42 @@ a:hover {
 }
 
 .social-links svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   display: block;
   flex-shrink: 0;
 }
 
 .social-links a {
   flex-shrink: 0;
+}
+
+/* Styled tooltip driven by each link's aria-label (replaces the native
+   title tooltip so descriptions appear on hover/focus). */
+.social-links a::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: #292524;
+  color: #fafaf9;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+
+.social-links a:hover::after,
+.social-links a:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Safari: an <a> wrapping the hero photo is inline by default and
