@@ -332,7 +332,7 @@
       <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
         <p>
           Beyond RGB images for edge extraction, EPO needs only what any 3D Foundation Model already outputs — camera intrinsics, poses, and depth maps —
-          so it drops in on top of different backbones unchanged. Applied to <b>VGGT</b>, <b>MapAnything</b>, and <b>&pi;<sup>3</sup>X</b>, EPO consistently boosts pose
+          so it drops in on top of different backbones unchanged. Applied to <b>VGGT</b>, <b>MapAnything</b>, <b>&pi;<sup>3</sup>X</b>, <b>VGGT-&Omega;</b>, <b>Deja&nbsp;View</b>, and <b>DA3-Large</b>, EPO consistently boosts pose
           accuracy across every dataset.
         </p>
       </div>
@@ -351,9 +351,21 @@
             <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">π³X</p>
             <canvas id="chart-gen-pi3x"></canvas>
           </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">VGGT-Omega</p>
+            <canvas id="chart-gen-vggtomega"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">Deja View</p>
+            <canvas id="chart-gen-dejaview"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; color:#374151;">DA3-L</p>
+            <canvas id="chart-gen-da3"></canvas>
+          </div>
         </div>
         <p class="has-text-centered is-size-7">
-          AUC@5° (higher is better) for three 3D Foundation Models, shown as raw output and after EPO refinement.
+          AUC@5° (higher is better) for six 3D Foundation Models, shown as raw output and after EPO refinement.
           EPO improves geometric accuracy across all models and datasets.
         </p>
       </div>
@@ -513,9 +525,12 @@
   Chart.defaults.font.family = 'Inter, sans-serif';
 
   var DATASETS = ['TerraSky3D', 'ScanNet++', 'Mip-NeRF 360'];
+  var DATASETS4 = ['TerraSky3D', 'ScanNet++', 'Mip-NeRF 360', 'ETH3D']; // new gen charts (Deja View, DA3) also cover ETH3D
   var TICK    = { font: { size: 12 }, color: '#4b5563' };
   var TICK_SM = { font: { size: 11 }, color: '#4b5563' };
   var LEGEND_SM = { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10, padding: 6, color: '#374151' } };
+  // Force one decimal in tooltips so round scores show as 70.0, not 70 (empty ETH3D bars stay dash-free)
+  var GEN_TOOLTIP = { callbacks: { label: function(c) { var v = c.parsed.y; return c.dataset.label + ': ' + (v == null ? '—' : v.toFixed(1)); } } };
   var YGRID = { color: '#f1f5f9' };
 
   var methods = [
@@ -682,30 +697,69 @@
       });
     },
     'chart-gen-vggt': function(el) {
-      return new Chart(el, { type: 'bar', data: { labels: DATASETS, datasets: [
-        { label: 'Raw',  data: [56.8, 55.6, 72.2], backgroundColor: '#bfdbfe', borderRadius: 3 },
-        { label: '+EPO', data: [79.2, 77.1, 90.5], backgroundColor: '#1d4ed8', borderRadius: 3 }
-      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, plugins: { legend: LEGEND_SM },
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS4, datasets: [
+        { label: 'Raw',  data: [56.8, 55.6, 72.2, 31.0], backgroundColor: '#bfdbfe', borderRadius: 3 },
+        { label: '+EPO', data: [79.2, 77.1, 90.5, 61.9], backgroundColor: '#1d4ed8', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, layout: { padding: { right: 40 } }, plugins: { legend: LEGEND_SM, tooltip: GEN_TOOLTIP },
         scales: { x: { grid: { display: false }, ticks: TICK_SM },
-                  y: { min: 20, max: 100, grid: YGRID, border: { display: false },
+                  y: { min: 30, max: 100, grid: YGRID, border: { display: false },
+                       afterFit: function(s) { s.width = 40; }, // pin axis width so the plot area (and bars) center under the title
+                       title: { display: true, text: 'AUC@5° ↑', font: { size: 10 }, color: '#64748b' },
                        ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
     },
     'chart-gen-map': function(el) {
-      return new Chart(el, { type: 'bar', data: { labels: DATASETS, datasets: [
-        { label: 'Raw',  data: [53.0, 37.3, 41.4], backgroundColor: '#bbf7d0', borderRadius: 3 },
-        { label: '+EPO', data: [78.3, 60.4, 74.5], backgroundColor: '#15803d', borderRadius: 3 }
-      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, plugins: { legend: LEGEND_SM },
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS4, datasets: [
+        { label: 'Raw',  data: [53.0, 37.3, 41.4, 33.3], backgroundColor: '#bbf7d0', borderRadius: 3 },
+        { label: '+EPO', data: [78.3, 60.4, 74.5, 55.8], backgroundColor: '#15803d', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, layout: { padding: { right: 40 } }, plugins: { legend: LEGEND_SM, tooltip: GEN_TOOLTIP },
         scales: { x: { grid: { display: false }, ticks: TICK_SM },
-                  y: { min: 20, max: 100, grid: YGRID, border: { display: false },
+                  y: { min: 30, max: 100, grid: YGRID, border: { display: false },
+                       afterFit: function(s) { s.width = 40; }, // pin axis width so the plot area (and bars) center under the title
+                       title: { display: true, text: 'AUC@5° ↑', font: { size: 10 }, color: '#64748b' },
                        ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
     },
     'chart-gen-pi3x': function(el) {
-      return new Chart(el, { type: 'bar', data: { labels: DATASETS, datasets: [
-        { label: 'Raw',  data: [65.1, 70.0, 71.8], backgroundColor: '#fde68a', borderRadius: 3 },
-        { label: '+EPO', data: [81.2, 80.3, 85.9], backgroundColor: '#b45309', borderRadius: 3 }
-      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, plugins: { legend: LEGEND_SM },
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS4, datasets: [
+        { label: 'Raw',  data: [65.1, 70.0, 71.8, 56.0], backgroundColor: '#fde68a', borderRadius: 3 },
+        { label: '+EPO', data: [81.2, 80.3, 85.9, 64.6], backgroundColor: '#b45309', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, layout: { padding: { right: 40 } }, plugins: { legend: LEGEND_SM, tooltip: GEN_TOOLTIP },
         scales: { x: { grid: { display: false }, ticks: TICK_SM },
-                  y: { min: 20, max: 100, grid: YGRID, border: { display: false },
+                  y: { min: 30, max: 100, grid: YGRID, border: { display: false },
+                       afterFit: function(s) { s.width = 40; }, // pin axis width so the plot area (and bars) center under the title
+                       title: { display: true, text: 'AUC@5° ↑', font: { size: 10 }, color: '#64748b' },
+                       ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
+    },
+    'chart-gen-vggtomega': function(el) {
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS4, datasets: [
+        { label: 'Raw',  data: [63.1, 68.4, 76.8, 63.7], backgroundColor: '#a5f3fc', borderRadius: 3 },
+        { label: '+EPO', data: [80.5, 79.3, 90.5, 76.1], backgroundColor: '#0891b2', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, layout: { padding: { right: 40 } }, plugins: { legend: LEGEND_SM, tooltip: GEN_TOOLTIP },
+        scales: { x: { grid: { display: false }, ticks: TICK_SM },
+                  y: { min: 30, max: 100, grid: YGRID, border: { display: false },
+                       afterFit: function(s) { s.width = 40; }, // pin axis width so the plot area (and bars) center under the title
+                       title: { display: true, text: 'AUC@5° ↑', font: { size: 10 }, color: '#64748b' },
+                       ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
+    },
+    'chart-gen-dejaview': function(el) {
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS4, datasets: [
+        { label: 'Raw',  data: [46.7, 71.1, 84.5, 64.3], backgroundColor: '#d9f99d', borderRadius: 3 },
+        { label: '+EPO', data: [71.7, 79.6, 92.1, 76.2], backgroundColor: '#76b900', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, layout: { padding: { right: 40 } }, plugins: { legend: LEGEND_SM, tooltip: GEN_TOOLTIP },
+        scales: { x: { grid: { display: false }, ticks: TICK_SM },
+                  y: { min: 30, max: 100, grid: YGRID, border: { display: false },
+                       afterFit: function(s) { s.width = 40; }, // pin axis width so the plot area (and bars) center under the title
+                       title: { display: true, text: 'AUC@5° ↑', font: { size: 10 }, color: '#64748b' },
+                       ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
+    },
+    'chart-gen-da3': function(el) {
+      return new Chart(el, { type: 'bar', data: { labels: DATASETS4, datasets: [
+        { label: 'Raw',  data: [34.4, 57.3, 76.5, 42.8], backgroundColor: '#ddd6fe', borderRadius: 3 },
+        { label: '+EPO', data: [69.7, 74.7, 87.5, 65.2], backgroundColor: '#7c3aed', borderRadius: 3 }
+      ]}, options: { responsive: true, maintainAspectRatio: true, aspectRatio: GEN_ASPECT, layout: { padding: { right: 40 } }, plugins: { legend: LEGEND_SM, tooltip: GEN_TOOLTIP },
+        scales: { x: { grid: { display: false }, ticks: TICK_SM },
+                  y: { min: 30, max: 100, grid: YGRID, border: { display: false },
+                       afterFit: function(s) { s.width = 40; }, // pin axis width so the plot area (and bars) center under the title
+                       title: { display: true, text: 'AUC@5° ↑', font: { size: 10 }, color: '#64748b' },
                        ticks: { font: { size: 10 }, color: '#4b5563' } } } } });
     }
   };
