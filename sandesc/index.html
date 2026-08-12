@@ -248,15 +248,25 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
+      <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
+      <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
+        <p>
+          Matches obtained by plugging SAN<span style="font-variant: small-caps;">Desc</span> into existing keypoint detectors (top rows) against the
+          detectors' original descriptors (bottom rows). Green lines mark correct matches, red lines mark incorrect ones.
+        </p>
+      </div>
       <div class="figure-stack">
         <figure class="figure">
-          <img src="static/images/Screenshot 2025-12-14 at 15.39.50.png" alt="qualitative1" loading="lazy"/>
+          <img src="static/images/Screenshot 2025-12-14 at 15.39.50.png" alt="ALIKED and DeDoDe with SANDesc vs. original descriptors on Brandenburg Gate" loading="lazy"/>
+          <figcaption>ALIKED and DeDoDe with SAN<span style="font-variant: small-caps;">Desc</span> descriptors (top) vs. their original descriptors (bottom).</figcaption>
         </figure>
         <figure class="figure">
-          <img src="static/images/Screenshot 2025-12-14 at 15.40.02.png" alt="qualitative2" loading="lazy"/>
+          <img src="static/images/Screenshot 2025-12-14 at 15.40.02.png" alt="SuperPoint and DISK with SANDesc vs. original descriptors on St. Peter's Basilica" loading="lazy"/>
+          <figcaption>SuperPoint and DISK with SAN<span style="font-variant: small-caps;">Desc</span> descriptors (top) vs. their original descriptors (bottom).</figcaption>
         </figure>
         <figure class="figure">
-          <img src="static/images/Screenshot 2025-12-14 at 15.40.12.png" alt="qualitative3" loading="lazy"/>
+          <img src="static/images/Screenshot 2025-12-14 at 15.40.12.png" alt="RIPE with SANDesc vs. original descriptors on Brandenburg Gate" loading="lazy"/>
+          <figcaption>RIPE with SAN<span style="font-variant: small-caps;">Desc</span> descriptors (left) vs. its original descriptors (right).</figcaption>
         </figure>
       </div>
     </div>
@@ -313,22 +323,32 @@
     <div class="container">
       <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
 
-      <!-- Graz4K (AUC@5, 4K) -->
-      <div class="content" style="max-width: 520px; margin: 0 auto 2.5rem;">
-        <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">Graz4K @ 4K &mdash; AUC@5&uparrow;</p>
-        <canvas id="chart-graz4k"></canvas>
-      </div>
-
-      <!-- MegaDepth-1500 (AUC@5, 2048 kpts) -->
-      <div class="content" style="max-width: 520px; margin: 0 auto 2.5rem;">
-        <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">MegaDepth-1500 @ 2048 kpts &mdash; AUC@5&uparrow;</p>
-        <canvas id="chart-md1500"></canvas>
-      </div>
-
-      <!-- IMC21 (AUC@5, average over scenes) -->
-      <div class="content" style="max-width: 520px; margin: 0 auto;">
-        <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">IMC 2021 (avg over 9 scenes) &mdash; AUC@5&uparrow;</p>
-        <canvas id="chart-imc"></canvas>
+      <div class="content" style="max-width: 860px; margin: 0 auto;">
+        <div class="chart-grid-3">
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">Graz4K @ 4K</p>
+            <canvas id="chart-graz4k"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">MegaDepth-1500 @ 2048 kpts</p>
+            <canvas id="chart-md1500"></canvas>
+          </div>
+          <div>
+            <p class="has-text-centered is-size-7" style="font-weight:600; margin-bottom:.4rem; letter-spacing:.03em; text-transform:uppercase; color:#64748b;">IMC 2021 (avg over 9 scenes)</p>
+            <canvas id="chart-imc"></canvas>
+          </div>
+        </div>
+        <!-- Shared legend for all three charts: one swatch per method (base color), plus a single hatch
+             key explaining that the same color with a diagonal overlay marks the +SANDesc variant. -->
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:.35rem 1.1rem; margin:.6rem 0 .55rem; font-family:Inter,sans-serif; font-size:11px; color:#374151;">
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#93c5fd;"></span>SuperPoint</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#fdba74;"></span>DISK</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#86efac;"></span>RIPE</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#fca5a5;"></span>ALIKED</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#e7c9a8;"></span>DeDoDe-G</span>
+          <span style="display:inline-flex; align-items:center; gap:.35rem;"><span style="width:12px; height:12px; border-radius:2px; background:#fff; background-image:repeating-linear-gradient(45deg, #111 0, #111 1.5px, transparent 1.5px, transparent 5px); border:1px solid #cbd5e1;"></span><span style="white-space:nowrap;">+SAN<span style="font-variant: small-caps;">Desc</span></span></span>
+        </div>
+        <p class="has-text-centered is-size-7">AUC@5 (higher is better) across three matching benchmarks. DeDoDe-G runs out of memory on Graz4K at 4K.</p>
       </div>
     </div>
   </div>
@@ -451,19 +471,49 @@
   <script>
   Chart.defaults.font.family = 'Inter, sans-serif';
 
-  // Method palette — original detectors paired with their +SANDesc variant by hue (light → saturated).
+  // One base (light) color per detector; the +SANDesc variant reuses it with a darker diagonal
+  // hatch drawn on top, rather than a second solid color, so the legend only needs one entry to
+  // explain the hatch instead of a dark swatch per method.
+  var METHOD_HUES = {
+    SuperPoint: { light: '#93c5fd', dark: '#1d4ed8' },
+    DISK:       { light: '#fdba74', dark: '#c2410c' },
+    RIPE:       { light: '#86efac', dark: '#15803d' },
+    ALIKED:     { light: '#fca5a5', dark: '#b91c1c' },
+    'DeDoDe-G': { light: '#e7c9a8', dark: '#7c2d12' }
+  };
+
   var SANDESC_METHODS = [
-    { label: 'SuperPoint',              color: '#93c5fd' },
-    { label: 'SuperPoint + SANDesc',    color: '#1d4ed8' },
-    { label: 'DISK',                    color: '#fdba74' },
-    { label: 'DISK + SANDesc',          color: '#c2410c' },
-    { label: 'RIPE',                    color: '#86efac' },
-    { label: 'RIPE + SANDesc',          color: '#15803d' },
-    { label: 'ALIKED',                  color: '#fca5a5' },
-    { label: 'ALIKED + SANDesc',        color: '#b91c1c' },
-    { label: 'DeDoDe-G',                color: '#e7c9a8' },
-    { label: 'DeDoDe + SANDesc',        color: '#7c2d12' }
+    { label: 'SuperPoint',             method: 'SuperPoint' },
+    { label: 'SuperPoint + SANDesc',   method: 'SuperPoint', sandesc: true },
+    { label: 'DISK',                   method: 'DISK' },
+    { label: 'DISK + SANDesc',         method: 'DISK', sandesc: true },
+    { label: 'RIPE',                   method: 'RIPE' },
+    { label: 'RIPE + SANDesc',         method: 'RIPE', sandesc: true },
+    { label: 'ALIKED',                 method: 'ALIKED' },
+    { label: 'ALIKED + SANDesc',       method: 'ALIKED', sandesc: true },
+    { label: 'DeDoDe-G',               method: 'DeDoDe-G' },
+    { label: 'DeDoDe + SANDesc',       method: 'DeDoDe-G', sandesc: true }
   ];
+
+  // Tiled diagonal-stripe pattern in the method's dark shade over its light fill, used as the
+  // +SANDesc bar color so each pair reads as "same method, boosted" rather than two hues.
+  var PATTERN_CTX = document.createElement('canvas').getContext('2d');
+  function hatchFill(light, dark) {
+    var size = 8;
+    var tile = document.createElement('canvas');
+    tile.width = tile.height = size;
+    var tctx = tile.getContext('2d');
+    tctx.fillStyle = light;
+    tctx.fillRect(0, 0, size, size);
+    tctx.strokeStyle = dark;
+    tctx.lineWidth = 2;
+    tctx.beginPath();
+    tctx.moveTo(0, size); tctx.lineTo(size, 0);
+    tctx.moveTo(-size * 0.25, size * 0.25); tctx.lineTo(size * 0.25, -size * 0.25);
+    tctx.moveTo(size * 0.75, size * 1.25); tctx.lineTo(size * 1.25, size * 0.75);
+    tctx.stroke();
+    return PATTERN_CTX.createPattern(tile, 'repeat');
+  }
 
   // AUC@5 per benchmark, row-aligned to SANDESC_METHODS. null = OOM.
   var GRAZ4K = {                       // 4K only
@@ -507,11 +557,12 @@
 
   function datasetsFor(table) {
     return SANDESC_METHODS.map(function (m) {
-      return { label: m.label, data: table[m.label], backgroundColor: m.color, borderRadius: 2, borderWidth: 0 };
+      var hue = METHOD_HUES[m.method];
+      var bg = m.sandesc ? hatchFill(hue.light, hue.dark) : hue.light;
+      return { label: m.label, data: table[m.label], backgroundColor: bg, borderRadius: 2, borderWidth: 0 };
     });
   }
 
-  var LEGEND = { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10, padding: 6, color: '#374151' } };
   var TICK   = { font: { size: 11 }, color: '#4b5563' };
   var YGRID  = { color: '#f1f5f9' };
 
@@ -549,7 +600,7 @@
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: aspect,
-        plugins: { legend: LEGEND, tooltip: { callbacks: { label: function (c) {
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (c) {
           return c.dataset.label + ': ' + (c.parsed.y == null ? 'OOM' : c.parsed.y.toFixed(1));
         } } } },
         scales: {
@@ -561,19 +612,17 @@
     };
   }
 
-  var IS_DESKTOP = window.matchMedia('(min-width: 769px)').matches;
-
-  var SINGLE_ASPECT = IS_DESKTOP ? 1.15 : 0.95;
+  var CHART_ASPECT = 1.1;
 
   var chartFactories = {
     'chart-graz4k': function (el) {
-      return new Chart(el, barConfig(['4K'], GRAZ4K, 20, 70, SINGLE_ASPECT));
+      return new Chart(el, barConfig(['4K'], GRAZ4K, 20, 70, CHART_ASPECT));
     },
     'chart-md1500': function (el) {
-      return new Chart(el, barConfig(['2048 kpts'], MD1500, 20, 50, SINGLE_ASPECT));
+      return new Chart(el, barConfig(['2048 kpts'], MD1500, 20, 50, CHART_ASPECT));
     },
     'chart-imc': function (el) {
-      return new Chart(el, barConfig(['AVG'], IMC, 10, 45, SINGLE_ASPECT));
+      return new Chart(el, barConfig(['AVG'], IMC, 10, 45, CHART_ASPECT));
     }
   };
 
