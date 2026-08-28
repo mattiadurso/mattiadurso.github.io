@@ -900,6 +900,13 @@ a:focus {
 
 
 /* Icon-only publication links in the hero */
+.publication-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .pub-icon-link {
   display: inline-flex;
   flex-direction: column;
