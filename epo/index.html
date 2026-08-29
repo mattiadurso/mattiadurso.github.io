@@ -179,18 +179,20 @@
   </div>
 </section>
 
-<!-- Presentations & Workshops -->
+<!-- News -->
 <section class="section" style="padding-top: 1rem;">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3 has-text-centered">Presentations &amp; Workshops</h2>
+    <h2 class="title is-3 has-text-centered">News</h2>
     <div class="content has-text-justified" style="max-width: 620px; margin: 0 auto;">
       <ul>
-        <li><a href="https://sites.google.com/view/neuslam" target="_blank" class="presentation-link">3<sup>rd</sup> NeuSLAM</a> [Nectar Track], ECCV 2026 Workshop — Sept 8, Malmö</li>
+        <li><a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.2</a> is out 🚀 &mdash; 2.4&times; faster than v1.1 (133 &rarr; 318 it/s on a 4090), same accuracy. Refining 150 cameras takes ~5 s.</li>
+        <li><a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.1</a> &mdash; we now support depth (re-)densification with <a href="https://github.com/zhiyuandaily/Any2Full" target="_blank" class="presentation-link">Any2Full</a>.</li>
+        <li>EPO will be presented at the <a href="https://sites.google.com/view/neuslam" target="_blank" class="presentation-link">3<sup>rd</sup> NeuSLAM</a> [Nectar Track], ECCV 2026 Workshop &mdash; Sept 8, Malm&ouml;.</li>
       </ul>
     </div>
   </div>
 </section>
-<!-- End Presentations & Workshops -->
+<!-- End News -->
 
 <!-- Teaser -->
 <section class="hero teaser is-small">
@@ -214,7 +216,25 @@
 </section>
 <!-- End teaser -->
 
-<!-- Paper abstract -->
+<!-- TL;DR -->
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">TL;DR</h2>
+    <div class="content has-text-justified" style="max-width: 720px; margin: 0 auto;">
+      <p>
+        EPO runs on top of <b>any</b> 3D Foundation Model, skips feature extraction and matching entirely, and
+        significantly improves the estimated camera poses in a fraction of the model&rsquo;s own inference time.
+        With densification, it gives back a dense output just like the one the 3DFM would produce &mdash; but with
+        better geometry, thanks to the optimization.
+        In short: <b>faster, better, and denser than traditional Bundle Adjustment</b>.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End TL;DR -->
+
+<!--
+Paper abstract
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -237,7 +257,8 @@
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
+End paper abstract
+-->
 
 <!-- Contributions -->
 <section class="section">
