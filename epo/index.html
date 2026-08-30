@@ -124,7 +124,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Boosting 3D Foundation Models with <b>E</b>dge-based <b>P</b>ose <b>O</b>ptimization</h1>
+            <h1 class="title is-1 publication-title">Boosting 3D Foundation Models<br>with <b>E</b>dge-based <b>P</b>ose <b>O</b>ptimization</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://mattiadurso.com/" target="_blank">Mattia D'Urso</a><sup>1</sup>
@@ -151,9 +151,9 @@
                   <span class="pub-icon-label">Paper</span>
                 </a> -->
                 <!-- TODO: add arXiv id when available -->
-                <a href="https://arxiv.org/abs/2607.00579" target="_blank" class="pub-icon-link" title="arXiv">
+                <a href="https://arxiv.org/abs/2607.00579" target="_blank" class="pub-icon-link" title="Paper">
                   <span class="pub-icon-circle"><i class="ai ai-arxiv"></i></span>
-                  <span class="pub-icon-label">arXiv</span>
+                  <span class="pub-icon-label">Paper</span>
                 </a>
                 <!-- ECCV 2026 poster -->
                 <a href="https://eccv.ecva.net/media/PosterPDFs/ECCV%202026/4837.png?t=1787946367.2933977" target="_blank" class="pub-icon-link" title="Poster">
@@ -191,7 +191,7 @@
     <div class="content has-text-justified" style="max-width: 620px; margin: 0 auto;">
       <ul>
         <li><b>Sept 2026</b> &mdash; EPO will be presented at the <a href="https://sites.google.com/view/neuslam" target="_blank" class="presentation-link">3<sup>rd</sup> NeuSLAM</a> [Nectar Track], ECCV 2026 Workshop, Sept 8, Malm&ouml;.</li>
-        <li><b>Aug 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.2</a> is out 🚀 2.4&times; faster than v1.1 (133 &rarr; 318 it/s on a 4090), same accuracy. Refining 150 cameras takes ~5 s.</li>
+        <li><b>Aug 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.2</a> is out 🚀 2.4&times; faster than v1.1, same accuracy. Refining 150 cameras takes ~5 s on a RTX 4090.</li>
         <li><b>Jul 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.1</a> adds support for depth (re-)densification with <a href="https://github.com/zhiyuandaily/Any2Full" target="_blank" class="presentation-link">Any2Full</a>.</li>
       </ul>
     </div>
@@ -377,7 +377,7 @@ End paper abstract
       <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
         <p>
           Beyond RGB images for edge extraction, EPO needs only what any 3D Foundation Model already outputs — camera intrinsics, poses, and depth maps —
-          so it drops in on top of different backbones unchanged. Applied to <b>VGGT</b>, <b>MapAnything</b>, <b>&pi;<sup>3</sup>X</b>, <b>VGGT-&Omega;</b>, <b>Deja&nbsp;View</b>, and <b>DA3-Large</b>, EPO consistently boosts pose
+          so it drops in on top of different backbones unchanged. Applied to <a href="https://arxiv.org/abs/2503.11651" target="_blank" class="presentation-link"><b>VGGT</b></a>, <a href="https://arxiv.org/abs/2509.13414" target="_blank" class="presentation-link"><b>MapAnything</b></a>, <a href="https://arxiv.org/abs/2507.13347" target="_blank" class="presentation-link"><b>&pi;<sup>3</sup>X</b></a>, <a href="https://arxiv.org/abs/2605.15195" target="_blank" class="presentation-link"><b>VGGT-&Omega;</b></a>, <a href="https://arxiv.org/abs/2605.30215" target="_blank" class="presentation-link"><b>Deja&nbsp;View</b></a>, and <a href="https://arxiv.org/abs/2511.10647" target="_blank" class="presentation-link"><b>DA3-Large</b></a>, EPO consistently boosts pose
           accuracy across every dataset.
         </p>
       </div>
@@ -427,7 +427,7 @@ End paper abstract
       <h2 class="title is-3 has-text-centered">Novel View Synthesis</h2>
       <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
         <p>
-          As a downstream proxy for reconstruction quality, we train a 3DGS model for 30,000 steps on each SfM reconstruction. On Mip-NeRF&nbsp;360,
+          As a downstream proxy for reconstruction quality, we train a <a href="https://arxiv.org/abs/2308.04079" target="_blank" class="presentation-link">3DGS</a> model for 30,000 steps on each SfM reconstruction. On Mip-NeRF&nbsp;360,
           VGGT+EPO yields the best PSNR, SSIM, and LPIPS among the optimization methods, preserving sharper structural detail than BA-based refinement.
         </p>
       </div>
