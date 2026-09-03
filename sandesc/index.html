@@ -249,12 +249,6 @@
   <div class="hero-body">
     <div class="container">
       <h2 class="title is-3 has-text-centered">Qualitative Results</h2>
-      <div class="content has-text-justified" style="max-width: 860px; margin: 0 auto 1.5rem;">
-        <p>
-          Matches obtained by plugging SAN<span style="font-variant: small-caps;">Desc</span> into existing keypoint detectors (top rows) against the
-          detectors' original descriptors (bottom rows). Green lines mark correct matches, red lines mark incorrect ones.
-        </p>
-      </div>
       <div class="figure-stack">
         <figure class="figure">
           <img src="static/images/Screenshot 2025-12-14 at 15.39.50.png" alt="ALIKED and DeDoDe with SANDesc vs. original descriptors on Brandenburg Gate" loading="lazy"/>
@@ -274,14 +268,30 @@
 </section>
 <!-- End qualitative results -->
 
-<!-- Paper abstract -->
+<!-- TL;DR -->
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">TL;DR</h2>
+    <div class="content has-text-justified" style="max-width: 720px; margin: 0 auto;">
+      <p>
+        SAN<span style="font-variant: small-caps;">Desc</span> can be trained on top of <b>any</b> keypoint detector, leaving the detector untouched.
+        It matches state-of-the-art descriptors on low-resolution data and <b>surpasses all of them on high-resolution data</b>,
+        while still running on a single consumer GPU with 24&nbsp;GB of VRAM.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End TL;DR -->
+
+<!--
+Paper abstract
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <!-- TODO: Replace with your paper abstract -->
+          
           <p>
             We introduce <b>SAN<span style="font-variant: small-caps;">Desc</span></b> a <u>S</u>treamlined <u>A</u>ttention-based <u>N</u>etwork for <u>Desc</u>riptor extraction that aims to improve on existing architectures for keypoint description.
             Our descriptor network learns to compute descriptors that improve matching without modifying the underlying keypoint detector.
@@ -295,7 +305,24 @@
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
+End paper abstract
+-->
+
+<!-- Contributions -->
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">Contributions</h2>
+    <div class="content has-text-justified">
+      <ul>
+        <li>We propose <b>SAN<span style="font-variant: small-caps;">Desc</span></b>, a <u>S</u>treamlined <u>A</u>ttention-based <u>N</u>etwork for <u>Desc</u>riptor extraction that can be trained on top of <b>any</b> existing keypoint detector, improving matching without modifying the detector itself.</li>
+        <li>We design a revised <span style="white-space: nowrap;">U-Net-like</span> architecture built from <b>Residual U-Net Blocks with Attention</b> (Convolutional Block Attention Modules plus residual paths), reaching strong local representation with just <b>2.4M parameters</b>.</li>
+        <li>We train with a modified <b>triplet loss</b> combined with a curriculum-learning&ndash;inspired <b>hard negative mining</b> strategy, which improves training stability.</li>
+        <li>We show on HPatches, MegaDepth-1500, and the Image Matching Challenge 2021 that SAN<span style="font-variant: small-caps;">Desc</span> is on par with state-of-the-art descriptors at low resolution, and we introduce a new <b>urban 4K dataset</b> with pre-calibrated intrinsics on which it substantially outperforms them &mdash; all while training and running on a single 24&nbsp;GB consumer GPU.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- End contributions -->
 
 
 <!-- Model architecture -->
