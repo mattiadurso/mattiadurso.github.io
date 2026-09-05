@@ -12,3 +12,13 @@ epo/plots_png/
 CV/*
 !CV/cv.pdf
 !CV/cv.tex
+
+# SANDesc: assets kept locally but not referenced by the page (unused figures,
+# the Bulma source map, and the unminified Bulma JS — only the .min files load).
+sandesc/static/images/graz4k.png
+sandesc/static/images/hpatches.png
+sandesc/static/images/imc.png
+sandesc/static/images/md1500.png
+sandesc/static/css/bulma.css.map.txt
+sandesc/static/js/bulma-carousel.js
+sandesc/static/js/bulma-slider.js

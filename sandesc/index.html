@@ -5,59 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- Primary Meta Tags -->
-  <!-- TODO: Replace with your paper title and author names -->
   <meta name="title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction - D'Urso et al.">
-  <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="description" content="SANDesc is a descriptor network trained on top of any keypoint detector. It matches state-of-the-art descriptors at low resolution and surpasses them at 4K.">
   <meta name="keywords" content="Structure-from-Motion, 3D Reconstruction, Keypoint Descriptor, sfm, descriptor, 4K">
-  <!-- TODO: List all authors -->
-  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
+  <meta name="author" content="Mattia D'Urso, Emanuele Santellani, Christian Sormann, Mattia Rossi, Andreas Kuhn, Friedrich Fraundorfer">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
-  <!-- TODO: Replace with your institution or lab name -->
-  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
-  <!-- TODO: Same as paper title above -->
+  <meta property="og:site_name" content="Institute for Visual Computing, Graz University of Technology">
   <meta property="og:title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction">
-  <!-- TODO: Same as description above -->
-  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
-  <!-- TODO: Create a 1200x630px preview image and update path -->
-  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:description" content="SANDesc is a descriptor network trained on top of any keypoint detector. It matches state-of-the-art descriptors at low resolution and surpasses them at 4K.">
+  <meta property="og:url" content="https://mattiadurso.com/sandesc">
+  <meta property="og:image" content="https://mattiadurso.com/sandesc/static/images/architecture.png">
+  <meta property="og:image:width" content="1068">
+  <meta property="og:image:height" content="616">
   <meta property="og:image:alt" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction - Research Preview">
-  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
-  <meta property="article:author" content="FIRST_AUTHOR_NAME">
+  <meta property="article:published_time" content="2026-01-01T00:00:00.000Z">
+  <meta property="article:author" content="Mattia D'Urso">
   <meta property="article:section" content="Research">
-  <meta property="article:tag" content="KEYWORD1">
-  <meta property="article:tag" content="KEYWORD2">
+  <meta property="article:tag" content="Keypoint Description">
+  <meta property="article:tag" content="Image Matching">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <!-- TODO: Replace with your lab/institution Twitter handle -->
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <!-- TODO: Replace with first author's Twitter handle -->
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <!-- TODO: Same as paper title above -->
   <meta name="twitter:title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction">
-  <!-- TODO: Same as description above -->
-  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Same as social preview image above -->
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:description" content="SANDesc is a descriptor network trained on top of any keypoint detector. It matches state-of-the-art descriptors at low resolution and surpasses them at 4K.">
+  <meta name="twitter:image" content="https://mattiadurso.com/sandesc/static/images/architecture.png">
   <meta name="twitter:image:alt" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction - Research Preview">
 
   <!-- Academic/Research Specific -->
   <meta name="citation_title" content="SANDesc: A Streamlined Attention-based Network for Descriptor Extraction">
-  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
-  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
-  <meta name="citation_publication_date" content="2024">
-  <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  <meta name="citation_author" content="D'Urso, Mattia">
+  <meta name="citation_author" content="Santellani, Emanuele">
+  <meta name="citation_author" content="Sormann, Christian">
+  <meta name="citation_author" content="Rossi, Mattia">
+  <meta name="citation_author" content="Kuhn, Andreas">
+  <meta name="citation_author" content="Fraundorfer, Friedrich">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="International Conference on 3D Vision (3DV)">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2601.13126">
   
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
@@ -73,12 +61,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
 
-  <!-- TODO: Replace with your paper title and authors -->
   <title>SANDesc - D'Urso et al.</title>
-  
-  <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -115,49 +98,39 @@
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
     "headline": "SANDesc: A Streamlined Attention-based Network for Descriptor Extraction",
-    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
+    "description": "SANDesc is a descriptor network trained on top of any keypoint detector. It matches state-of-the-art descriptors at low resolution and surpasses them at 4K.",
     "author": [
-      {
-        "@type": "Person",
-        "name": "FIRST_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "SECOND_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      }
+      { "@type": "Person", "name": "Mattia D'Urso", "affiliation": { "@type": "Organization", "name": "Graz University of Technology" } },
+      { "@type": "Person", "name": "Emanuele Santellani", "affiliation": { "@type": "Organization", "name": "Graz University of Technology" } },
+      { "@type": "Person", "name": "Christian Sormann", "affiliation": { "@type": "Organization", "name": "Sony Europe" } },
+      { "@type": "Person", "name": "Mattia Rossi", "affiliation": { "@type": "Organization", "name": "Sony Europe" } },
+      { "@type": "Person", "name": "Andreas Kuhn", "affiliation": { "@type": "Organization", "name": "Sony Europe" } },
+      { "@type": "Person", "name": "Friedrich Fraundorfer", "affiliation": { "@type": "Organization", "name": "Graz University of Technology" } }
     ],
-    "datePublished": "2024-01-01",
+    "datePublished": "2026-01-01",
     "publisher": {
       "@type": "Organization",
-      "name": "CONFERENCE_OR_JOURNAL_NAME"
+      "name": "International Conference on 3D Vision (3DV)"
     },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
-    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
-    "abstract": "FULL_ABSTRACT_TEXT_HERE",
-    "citation": "BIBTEX_CITATION_HERE",
+    "url": "https://mattiadurso.com/sandesc",
+    "image": "https://mattiadurso.com/sandesc/static/images/architecture.png",
+    "keywords": ["Keypoint Descriptor", "Image Matching", "Structure-from-Motion", "3D Reconstruction", "machine learning", "computer vision"],
+    "abstract": "We introduce SANDesc, a Streamlined Attention-based Network for Descriptor extraction that aims to improve on existing architectures for keypoint description. Our descriptor network learns to compute descriptors that improve matching without modifying the underlying keypoint detector. We employ a revised U-Net-like architecture enhanced with Convolutional Block Attention Modules and residual paths, enabling effective local representation while maintaining computational efficiency. We refer to the building blocks of our model as Residual U-Net Blocks with Attention. The model is trained using a modified triplet loss in combination with a curriculum learning-inspired hard negative mining strategy, which improves training stability. Extensive experiments on HPatches, MegaDepth-1500, and the Image Matching Challenge 2021 show that training SANDesc on top of existing keypoint detectors leads to improved results on multiple matching tasks compared to the original keypoint descriptors. At the same time, SANDesc has a model complexity of just 2.4 million parameters. As a further contribution, we introduce a new urban dataset featuring 4K images and pre-calibrated intrinsics, designed to evaluate feature extractors. On this benchmark, SANDesc achieves substantial performance gains over the existing descriptors while operating with limited computational resources.",
+    "citation": "@inproceedings{durso2026sandesc, title={A Streamlined Attention-based Network for Descriptor Extraction}, author={D'Urso, Mattia and Santellani, Emanuele and Sormann, Christian and Rossi, Mattia and Kuhn, Andreas and Fraundorfer, Friedrich}, booktitle={2026 International Conference on 3D Vision (3DV)}, year={2026}, organization={IEEE Computer Society}}",
     "isAccessibleForFree": true,
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "mainEntity": {
       "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+      "@id": "https://mattiadurso.com/sandesc"
     },
     "about": [
       {
         "@type": "Thing",
-        "name": "RESEARCH_AREA_1"
+        "name": "Computer Vision"
       },
       {
         "@type": "Thing", 
-        "name": "RESEARCH_AREA_2"
+        "name": "Image Matching"
       }
     ]
   }
@@ -168,12 +141,10 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "INSTITUTION_OR_LAB_NAME",
-    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+    "name": "Institute for Visual Computing, Graz University of Technology",
+    "url": "https://ivc.tugraz.at/",
     "sameAs": [
-      "https://twitter.com/YOUR_TWITTER_HANDLE",
-      "https://github.com/YOUR_GITHUB_USERNAME"
+      "https://github.com/mattiadurso"
     ]
   }
   </script>
@@ -192,10 +163,8 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <!-- TODO: Replace with your paper title -->
             <h1 class="title is-1 publication-title"><b>SAN<span style="font-variant: small-caps;">Desc</span></b>: A Streamlined Attention-based Network for Descriptor Extraction</h1>
             <div class="is-size-5 publication-authors">
-              <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
                 <a href="https://mattiadurso.com/" target="_blank">Mattia D'Urso</a><sup>1</sup>
               </span>
@@ -218,7 +187,6 @@
                </div>
 
                   <div class="is-size-5 publication-authors">
-                    <!-- TODO: Replace with your institution and conference/journal info -->
                     <span class="author-block"><sup>1</sup>Graz University of Technology <sup>2</sup>Sony Europe<br>3DV 2026</span>
                   </div>
 
