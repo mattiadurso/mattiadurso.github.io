@@ -190,11 +190,14 @@
     <h2 class="title is-3 has-text-centered">News</h2>
     <div class="content has-text-justified" style="max-width: 620px; margin: 0 auto;">
       <ul>
+        <li><b>Oct 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.4</a> adds one radial distortion term per camera, learned together with the focal length. Same speed per step, better poses: VGGT-&Omega; + EPO goes 68.4&nbsp;&rarr;&nbsp;86.8 AUC@5 on ScanNet++ (v1.3:&nbsp;79.4) and 63.1&nbsp;&rarr;&nbsp;83.6 on TerraSky3D (v1.3:&nbsp;81.2).</li>
         <li><b>Oct 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.3</a> now supports 3DGS reconstruction through <a href="https://github.com/cvg/resplat" target="_blank" class="presentation-link">ReSplat</a>. With EPO poses, ReSplat achieves 24.2&nbsp;dB PSNR on Mip-NeRF&nbsp;360 in only ~47&nbsp;s on a RTX&nbsp;4090.</li>
-        <li><b>Sept 2026</b> &mdash; EPO will be presented at the <a href="https://sites.google.com/view/neuslam" target="_blank" class="presentation-link">3<sup>rd</sup> NeuSLAM</a> [Nectar Track], ECCV 2026 Workshop, Sept 8, Malm&ouml;.</li>
-        <li><b>Aug 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.2</a> is out 🚀 2.4&times; faster than v1.1, same accuracy. Refining 150 cameras takes less than 7 s on a RTX 4090.</li>
-        <li><b>Jul 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.1</a> adds support for depth (re-)densification with <a href="https://github.com/zhiyuandaily/Any2Full" target="_blank" class="presentation-link">Any2Full</a>.</li>
+        <!-- Only the two latest entries show; older ones are folded behind "more" (toggle script at the bottom of the page) -->
+        <li class="news-old is-hidden"><b>Sept 2026</b> &mdash; EPO will be presented at the <a href="https://sites.google.com/view/neuslam" target="_blank" class="presentation-link">3<sup>rd</sup> NeuSLAM</a> [Nectar Track], ECCV 2026 Workshop, Sept 8, Malm&ouml;.</li>
+        <li class="news-old is-hidden"><b>Aug 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.2</a> is out 🚀 2.4&times; faster than v1.1, same accuracy. Refining 150 cameras takes less than 7 s on a RTX 4090.</li>
+        <li class="news-old is-hidden"><b>Jul 2026</b> &mdash; <a href="https://github.com/mattiadurso/EPO" target="_blank" class="presentation-link">EPO v1.1</a> adds support for depth (re-)densification with <a href="https://github.com/zhiyuandaily/Any2Full" target="_blank" class="presentation-link">Any2Full</a>.</li>
       </ul>
+      <p class="has-text-centered"><a href="#" id="news-more" class="presentation-link">&mdash; more &mdash;</a></p>
     </div>
   </div>
 </section>
@@ -902,6 +905,17 @@ End paper abstract
 
     io.observe(gif);
   })();
+  </script>
+
+  <script>
+  // News: unfold / fold the entries older than the two latest.
+  document.getElementById('news-more').addEventListener('click', function (e) {
+    e.preventDefault();
+    var old = document.querySelectorAll('.news-old');
+    var show = old[0].classList.contains('is-hidden');
+    old.forEach(function (li) { li.classList.toggle('is-hidden', !show); });
+    this.innerHTML = show ? '&mdash; less &mdash;' : '&mdash; more &mdash;';
+  });
   </script>
 
   </body>
