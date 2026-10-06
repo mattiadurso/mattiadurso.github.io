@@ -382,6 +382,7 @@ a:hover {
   padding: 0.25rem 0.65rem;
   border-radius: 6px;
   margin-bottom: 0.85rem;
+  vertical-align: top;
 }
 
 .paper-desc {
@@ -471,6 +472,9 @@ a:hover {
    ───────────────────────────────────────────── */
 .badge {
   border: 1px solid transparent;
+  /* same height as .paper-venue (0.7rem × 1.65 + 2 × 0.25rem) minus the badge's 2px padding + 1px border per side */
+  line-height: calc(0.7rem * 1.65 + 0.5rem - 6px);
+  vertical-align: top;
   transition: background 0.15s ease, box-shadow 0.15s ease,
     transform 0.15s ease, border-color 0.15s ease;
 }
