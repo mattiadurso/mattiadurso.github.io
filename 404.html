@@ -66,6 +66,11 @@
         0%, 100% { transform: translateY(0) rotate(-8deg); opacity: 0.4; }
         50%      { transform: translateY(-6px) rotate(8deg); opacity: 1; }
       }
+
+      /* the site-wide reduced-motion rule would make these infinite loops flicker; stop them */
+      @media (prefers-reduced-motion: reduce) {
+        .lost-cam .body, .lost-cam .pupil, .lost-cam .lens, .lost-cam .huh { animation: none; }
+      }
     </style>
   </head>
 

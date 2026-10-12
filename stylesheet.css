@@ -485,6 +485,45 @@ a:hover {
   transform: translateY(-1px);
 }
 
+/* EPO stars badge: a gold comet runs clockwise around the pale-gold border at constant speed.
+   Three stacked dashes (head + two fading tail pieces) on SVG rects traced along the border's
+   centre line; pathLength="100" makes dash units a % of the perimeter, whatever the badge's shape. */
+.badge-stars {
+  position: relative;
+}
+
+.star-orbit {
+  position: absolute;
+  top: -0.5px;
+  left: -0.5px;
+  width: calc(100% + 1px);
+  height: calc(100% + 1px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.star-orbit rect {
+  fill: none;
+  stroke: #f1be39;
+  stroke-width: 1px;
+  stroke-dasharray: 0 94 6 0; /* each dash ends where the path starts, so the three heads line up */
+  animation: star-orbit 4s linear infinite;
+}
+
+.star-orbit rect:nth-child(2) {
+  stroke-dasharray: 0 84 16 0;
+  opacity: 0.5;
+}
+
+.star-orbit rect:nth-child(3) {
+  stroke-dasharray: 0 70 30 0;
+  opacity: 0.25;
+}
+
+@keyframes star-orbit {
+  to { stroke-dashoffset: -100; }
+}
+
 /* ─────────────────────────────────────────────
    Reduced motion
    ───────────────────────────────────────────── */
@@ -495,5 +534,12 @@ a:hover {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* an infinite loop at 0.01ms would flicker; show a solid gold border instead
+     (the first rect drawn undashed; the other two are gold on gold) */
+  .star-orbit rect {
+    animation: none;
+    stroke-dasharray: none;
   }
 }
