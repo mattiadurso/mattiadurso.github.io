@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="robots" content="noindex">
+
+    <title>Page not found · Mattia D'Urso</title>
+
+    <!-- Forgive case, trailing slashes and long names on the short links and project pages
+         (/GH, /cv/, /github → /gh). Only redirects when the target differs, so no loops. -->
+    <script>
+      var links = {
+        gh: '/gh', github: '/gh',
+        hf: '/hf', huggingface: '/hf',
+        ln: '/ln', linkedin: '/ln',
+        scholar: '/scholar',
+        cv: '/cv', resume: '/cv',
+        epo: '/epo/', sandesc: '/sandesc/'
+      };
+      var key = location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
+      if (links.hasOwnProperty(key) && links[key] !== location.pathname) location.replace(links[key]);
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+
+    <style>
+      .notfound {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* A lost camera looking around for the page */
+      .lost-cam {
+        width: 180px;
+        margin-bottom: 1.5rem;
+        overflow: visible;
+      }
+      .lost-cam .body  { transform-origin: 90px 70px; animation: wobble 3s ease-in-out infinite; }
+      .lost-cam .pupil { animation: look 3s ease-in-out infinite; }
+      .lost-cam .lens  { transform-origin: 90px 66px; animation: blink 3s infinite; }
+      .lost-cam .huh   { transform-origin: 150px 30px; animation: huh 3s ease-in-out infinite; }
+
+      @keyframes wobble {
+        0%, 100% { transform: rotate(-4deg); }
+        50%      { transform: rotate(4deg); }
+      }
+      @keyframes look {
+        0%, 100% { transform: translateX(-8px); }
+        50%      { transform: translateX(8px); }
+      }
+      @keyframes blink {
+        0%, 46%, 54%, 100% { transform: scaleY(1); }
+        50%                { transform: scaleY(0.1); }
+      }
+      @keyframes huh {
+        0%, 100% { transform: translateY(0) rotate(-8deg); opacity: 0.4; }
+        50%      { transform: translateY(-6px) rotate(8deg); opacity: 1; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="container notfound">
+      <svg class="lost-cam" viewBox="0 0 180 120" fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <g class="body">
+          <rect x="70" y="30" width="24" height="12" rx="3"/>
+          <rect x="45" y="40" width="90" height="56" rx="9" fill="#fafaf9"/>
+          <circle cx="122" cy="50" r="3" fill="#b45309" stroke="none"/>
+          <g class="lens">
+            <circle cx="90" cy="66" r="19" fill="#fff"/>
+            <circle class="pupil" cx="90" cy="66" r="7" fill="#1c1917" stroke="none"/>
+          </g>
+        </g>
+        <text class="huh" x="150" y="38" fill="#b45309" stroke="none" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="600" text-anchor="middle">?</text>
+      </svg>
+
+      <p class="tagline">Error 404</p>
+      <h1 class="name">Page not found</h1>
+      <p>Pose estimation failed: this page isn't in the reconstruction.</p>
+      <p>Back to <a href="/">mattiadurso.com</a>.</p>
+    </main>
+  </body>
+</html>
