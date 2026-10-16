@@ -401,6 +401,16 @@ a:hover {
   text-decoration-color: currentColor;
 }
 
+.paper-desc a.dataset-link {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration-color: #93c5fd;
+}
+
+.paper-desc a.dataset-link:hover {
+  text-decoration-color: currentColor;
+}
+
 /* ─────────────────────────────────────────────
    Footer
    ───────────────────────────────────────────── */
