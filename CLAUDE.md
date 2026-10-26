@@ -72,7 +72,7 @@ Changes go live automatically after pushing to `master`. No build step needed. T
 
 ## Site Structure
 
-Three pages — one main personal page (custom CSS) and two project pages (shared Bulma-based template):
+Three pages — one main personal page (custom CSS) and two project pages (shared Bulma-based template) — plus an unlisted concept page (`epala/`, see below):
 
 **Main personal page** (`index.html` + `stylesheet.css`):
 - Custom hand-written layout (originally adapted from the Jon Barron template, since fully rewritten — `stylesheet.css` is ~400 lines of custom CSS, no framework). Fonts: Cormorant Garamond (headings/serif) + Inter (body), loaded inline from Google Fonts
@@ -93,6 +93,10 @@ Three pages — one main personal page (custom CSS) and two project pages (share
 - Results tables carry a `.results-table` class (right-aligned numeric columns, tabular figures) defined at the bottom of `epo/static/css/index.css`
 - Paper source is kept in-repo under `epo/` but **gitignored** (see `.gitignore`): `EPO_latex/` (LaTeX, the content source of truth), `figs/` (original figures), `gifs/` (`townhall.mp4`, source for the teaser), and the full PDFs. The page only references committed copies under `epo/static/`: figures in `static/images/` (large renders downscaled to ~760px via `sips -Z`), the teaser `static/images/townhall.gif` (the full ~24 s clip, 1600 px on the long edge, 10 fps, generated from `gifs/townhall.mp4` via ffmpeg palettegen/paletteuse `stats_mode=diff` then `gifsicle -O3 --lossy=600 --colors 24`, ~16 MB — the content is a dense moving point cloud that compresses poorly, so full-res 1080p runs 22–23 MB and fps barely affects size; an H.264 `<video>` was tried but failed to autoplay in Safari and render in Chrome, hence the GIF). The compiled paper is not committed at all — `citation_pdf_url` points at the arXiv PDF
 - `epo/plots_png/` (also gitignored) holds standalone PNG renders of the page's chart groups: `group-pose.png` (the AUC@5° + runtime pair with the shared HTML legend), `group-gen.png` (the three generalization charts), and `chart-time-breakdown-horizontal.png` (a Mip-NeRF 360 per-stage time-breakdown chart that is NOT on the page — its source is the local harness `plots_png/time-breakdown.html`, data from the paper's `figs/timings.png`). Regenerate all three with `python3 epo/plots_png/render.py` (drives headless Google Chrome over the DevTools protocol; needs `pip install websocket-client`). The script captures the live `epo/index.html` at a 1400px viewport with chart animations disabled, emulating devicePixelRatio 3 before the charts are created so the Chart.js canvases rasterize at 3× (scaling at capture time instead would stretch 1× canvas pixels and blur)
+
+**Epala concept** (`epala/index.html`):
+- Redesign proposal for elisabettapala.com (photographer Elisabetta Pala), served at `mattiadurso.com/epala/` and not linked from the main page. Plain HTML/CSS/JS (`css/style.css`, `js/data.js`, `js/main.js`), photos as WebP under `epala/assets/web/`
+- The source of truth lives outside this repo (`~/Desktop/epala.com`, design notes in its `PROPOSAL.md`). The deployed copy ships only the assets the page references and adds `<meta name="robots" content="noindex">`; it is deliberately kept out of `sitemap.xml` because it carries someone else's brand and contact details. To update it, copy the changed files over again
 
 ## Adding a New Paper to the Main Page
 
