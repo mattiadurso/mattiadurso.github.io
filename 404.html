@@ -22,6 +22,12 @@
       };
       var key = location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
       if (links.hasOwnProperty(key) && links[key] !== location.pathname) location.replace(links[key]);
+
+      // /epala (the elisabettapala.com concept, taken down) gets a "demo is over" variant
+      if (key === 'epala' || key.indexOf('epala/') === 0) {
+        document.documentElement.className += ' demo-over';
+        document.title = "Demo is over · Mattia D'Urso";
+      }
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,9 +74,27 @@
         50%      { transform: translateY(-6px) rotate(8deg); opacity: 1; }
       }
 
+      /* "Demo is over" variant (set from the head script): the camera dozes off, lens shut, z's drifting up */
+      .demo-only, .demo-over .notfound-only { display: none; }
+      .demo-over .demo-only { display: revert; }
+      .demo-over .lost-cam .body  { animation: doze 4s ease-in-out infinite; }
+      .demo-over .lost-cam .lens  { display: none; }
+      .lost-cam .zz { transform-origin: 150px 30px; animation: zz 4s ease-in-out infinite; }
+
+      @keyframes doze {
+        0%, 100% { transform: rotate(-3deg) translateY(0); }
+        50%      { transform: rotate(-3deg) translateY(3px); }
+      }
+      @keyframes zz {
+        0%      { transform: translate(-6px, 6px); opacity: 0; }
+        30%, 70% { opacity: 1; }
+        100%    { transform: translate(6px, -10px); opacity: 0; }
+      }
+
       /* the site-wide reduced-motion rule would make these infinite loops flicker; stop them */
       @media (prefers-reduced-motion: reduce) {
-        .lost-cam .body, .lost-cam .pupil, .lost-cam .lens, .lost-cam .huh { animation: none; }
+        .lost-cam .body, .lost-cam .pupil, .lost-cam .lens, .lost-cam .huh,
+        .demo-over .lost-cam .body, .lost-cam .zz { animation: none; }
       }
     </style>
   </head>
@@ -86,13 +110,26 @@
             <circle cx="90" cy="66" r="19" fill="#fff"/>
             <circle class="pupil" cx="90" cy="66" r="7" fill="#1c1917" stroke="none"/>
           </g>
+          <g class="demo-only">
+            <circle cx="90" cy="66" r="19" fill="#fff"/>
+            <path d="M78 64 q12 10 24 0"/>
+          </g>
         </g>
-        <text class="huh" x="150" y="38" fill="#b45309" stroke="none" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="600" text-anchor="middle">?</text>
+        <text class="huh notfound-only" x="150" y="38" fill="#b45309" stroke="none" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="600" text-anchor="middle">?</text>
+        <text class="zz demo-only" x="150" y="38" fill="#b45309" stroke="none" font-family="'Cormorant Garamond', Georgia, serif" font-size="26" font-weight="600" text-anchor="middle">z<tspan font-size="18" dy="-10">z</tspan></text>
       </svg>
 
-      <p class="tagline">Error 404</p>
-      <h1 class="name">Page not found</h1>
-      <p>Pose estimation failed: this page isn't in the reconstruction.</p>
+      <div class="notfound-only">
+        <p class="tagline">Error 404</p>
+        <h1 class="name">Page not found</h1>
+        <p>Pose estimation failed: this page isn't in the reconstruction.</p>
+      </div>
+      <div class="demo-only">
+        <p class="tagline">That's a wrap</p>
+        <h1 class="name">The demo is over</h1>
+        <p>This concept was online for a limited time and has now been taken down.</p>
+        <p lang="it">La demo è terminata. Grazie per averla guardata!</p>
+      </div>
       <p>Back to <a href="/">mattiadurso.com</a>.</p>
     </main>
   </body>
